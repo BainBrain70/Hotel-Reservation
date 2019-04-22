@@ -10,9 +10,12 @@ import static javafx.application.Application.launch;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.geometry.Insets;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -25,7 +28,7 @@ import java.time.LocalDate;
 import java.io.*;
 /**
  *
- * @author CodyWickman
+ * @author CodyWickman, Chris Bain
  */
 public class HotelReservation extends Application {
     private Label firstName;
@@ -37,10 +40,13 @@ public class HotelReservation extends Application {
     private Label city;
     private Label postalCode;
     private Label phoneNum;
+    
     private Label cardType;
     private Label cardNum;
     private Label expirationDate;
-    private Label expirationYear;
+    private Label nameOnCard;
+    private Label ccvNumber;
+    
     private Label roomType;
     private Label room2Type;
     private Label numRooms;
@@ -48,6 +54,7 @@ public class HotelReservation extends Application {
     private Label inDate;
     private Label outDate;
     private Label termsCond;
+    
     private TextField roomsField;
     private TextField guestsField;
     private TextField fNameField;
@@ -59,10 +66,13 @@ public class HotelReservation extends Application {
     private TextField cityField;
     private TextField postalField;
     private TextField phoneField;
+  
     private TextField cardField;
     private TextField cardNumField;
     private TextField expDateField;
-    private TextField expYearField;
+    private TextField nameOnCardField;
+    private TextField ccvNumberField;
+    
     private TextField roomField;
     private TextField inDateField;
     private TextField outDateField;
@@ -86,6 +96,7 @@ public class HotelReservation extends Application {
       Button saveButton = new Button ("Save");
       Button paymentButton = new Button ("Continue");
       Button confirmationButton = new Button ("Confirm");
+      Button showRoomButton = new Button("Show My Room");
       
       firstName = new Label("First Name*");
       lastName = new Label("Last Name*");
@@ -222,11 +233,7 @@ public class HotelReservation extends Application {
                   cb2.getItems().add("Guest Room, 1 Queen");
                   cb2.getItems().add("Guest Room, 1 King");
                   cb2.getItems().add("Executive Suite, 1 King, 1 Sofa");
-             
-             
-               
-                  
-                  
+                           
                   gridPane.setPadding(new Insets(30, 30, 30, 30)); // Padding around  grid
                   gridPane.setHgap(10);                            // Spacing between columns
                   gridPane.setVgap(10);
@@ -244,6 +251,7 @@ public class HotelReservation extends Application {
                   gridPane.add(room2Type,0,10);
                   gridPane.add(cb2,0,11);
                   gridPane.add(paymentButton,0,12);
+                  gridPane.add(showRoomButton, 0, 13);
                   
                  primaryStage.setTitle("Room Information");
                  primaryStage.setScene(scene);
@@ -265,7 +273,8 @@ public class HotelReservation extends Application {
             	cardType = new Label("Card Type");
             	cardNum = new Label("Card Number");
             	expirationDate = new Label("Expiration Date");
-            	expirationYear = new Label("Expiration Year");
+            	nameOnCard = new Label("Enter the name on the credit card exactly how it appears");
+            	ccvNumber = new Label("CCV #");
             	
             	cardNumField = new TextField();
             	cardNumField.setEditable(true);
@@ -275,10 +284,13 @@ public class HotelReservation extends Application {
             	expDateField.setEditable(true);
             	expDateField.setText("");
             	
-            	expYearField = new TextField();
-            	expYearField.setEditable(true);
-            	expYearField.setText("");
+            	nameOnCardField = new TextField();
+            	nameOnCardField.setEditable(true);
+            	nameOnCardField.setText("");
             	
+            	ccvNumberField = new TextField();
+            	ccvNumberField.setEditable(true);
+            	ccvNumberField.setText("");
             	
             	ChoiceBox<String> choiceBox = new ChoiceBox<>();
             	
@@ -290,15 +302,17 @@ public class HotelReservation extends Application {
                 gridPane.setHgap(10);                            // Spacing between columns
                 gridPane.setVgap(10);
             	
-            	gridPane.add(cardType,0,0);
-            	gridPane.add(choiceBox, 0,1);
-            	gridPane.add(cardNum, 0, 2);
-            	gridPane.add(cardNumField, 0, 3);
-            	gridPane.add(expirationDate, 0, 4);
-            	gridPane.add(expDateField,0,5);
-            	gridPane.add(expirationYear, 0, 6);
-            	gridPane.add(expYearField, 0, 7);
-            	gridPane.add(confirmationButton, 0,8 );
+                gridPane.add(nameOnCard, 0, 0);
+                gridPane.add(nameOnCardField, 0, 1);
+            	gridPane.add(cardType,0,2);
+            	gridPane.add(choiceBox, 0,3);
+            	gridPane.add(cardNum, 0, 4);
+            	gridPane.add(cardNumField, 0, 5);
+            	gridPane.add(expirationDate, 0, 6);
+            	gridPane.add(expDateField,0,7);
+            	gridPane.add(ccvNumber,0,8);
+            	gridPane.add(ccvNumberField, 0, 9);
+            	gridPane.add(confirmationButton, 0,10 );
             	
             	 primaryStage.setTitle("Payment Information");
                  primaryStage.setScene(scene);
@@ -307,12 +321,21 @@ public class HotelReservation extends Application {
             }
         });
         
-        confirmationButton.setOnAction(new EventHandler<ActionEvent>() {
+        showRoomButton.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
             public void handle(ActionEvent event) {
              
-       
+            	Image image = new Image("file:download.jpg");
+        		ImageView imageView = new ImageView(image);
+        		
+        		HBox hBox = new HBox(imageView);
+        		
+        		Scene scene = new Scene(hBox);
+        		
+        		primaryStage.setTitle("King Room");
+        		primaryStage.setScene(scene);
+        		primaryStage.show();
             }
         });
         
@@ -322,10 +345,6 @@ public class HotelReservation extends Application {
         primaryStage.show();
     }
     
-    public void RoomCost () {
-        
-    }
-
     /**
      * @param args the command line arguments
      */
