@@ -361,17 +361,21 @@ public class HotelReservation extends Application {
         try {
             FileWriter filewriter;
             filewriter = new FileWriter("guestInfo.txt");
+            filewriter.write("Name: ");
             filewriter.write(fNameField.getText());
             filewriter.write(" ");
             filewriter.write(lNameField.getText());
             filewriter.write("\n");
+            filewriter.write("Email Address: ");
             filewriter.write(emailField.getText());
             filewriter.write("\n");
-            filewriter.write(countryField.getText());
-            filewriter.write("\n");
+            //filewriter.write(countryField.getText());
+            //filewriter.write("\n");
+             filewriter.write("Address: ");
             filewriter.write(addressField.getText() + " " + cityField.getText()
             + ", " + stateField.getText() + postalField.getText());
             filewriter.write("\n");
+            filewriter.write("Phone Number: ");
             filewriter.write(phoneField.getText());
             filewriter.write("\n");
             filewriter.close();
