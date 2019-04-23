@@ -10,34 +10,38 @@ import static javafx.application.Application.launch;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.geometry.Insets;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.CheckBox;
 import java.time.LocalDate;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.geometry.Pos;
 import java.io.*;
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
 import javax.activation.*;
 import javax.mail.internet.MimeMessage;
+import java.util.Scanner;
 /**
  *
- * @author CodyWickman, Chris Bain
+ * @author CodyWickman
  */
 public class HotelReservation extends Application {
-    private Label firstName;
+     private Label firstName;
     private Label lastName;
+    private Label prefTitle;
     private Label email;
     private Label country;
     private Label state;
@@ -59,11 +63,12 @@ public class HotelReservation extends Application {
     private Label inDate;
     private Label outDate;
     private Label termsCond;
-    
+   
     private TextField roomsField;
     private TextField guestsField;
     private TextField fNameField;
     private TextField lNameField;
+    private TextField prefTitleField;
     private TextField emailField;
     private TextField countryField;
     private TextField stateField;
@@ -82,8 +87,12 @@ public class HotelReservation extends Application {
     private TextField inDateField;
     private TextField outDateField;
     LocalDate ld;
+    DatePicker dp;
+    DatePicker dp2;
+    ComboBox choiceBox;
+    ComboBox cb2;
     
-    int i = 0;
+    //int i = 0;
     
     @Override
     public void start(Stage primaryStage) {
@@ -94,17 +103,20 @@ public class HotelReservation extends Application {
       gridPane = new GridPane();   // Create an empty pane
       scene = new Scene(gridPane);
       
-      DatePicker dp = new DatePicker();
-      DatePicker dp2 = new DatePicker();
+      dp = new DatePicker();
+      dp2 = new DatePicker();
         
       Button nextPageBtn = new Button("Next Page");
       Button saveButton = new Button ("Save");
-      Button paymentButton = new Button ("Continue");
-      Button confirmationButton = new Button ("Confirm");
+      Button paymentButton = new Button ("Next Page");
+      Button confirmationButton = new Button ("Review Reservation");
       Button showRoomButton = new Button("Show My Room");
+      Button confirmButton = new Button("Confirm my Reservation");
+      
       
       firstName = new Label("First Name*");
       lastName = new Label("Last Name*");
+      prefTitle = new Label("Preferred Title");
       email = new Label ("Email Address*");
       address = new Label ("Address*");
       country = new Label ("Country / Reigon*");
@@ -122,6 +134,11 @@ public class HotelReservation extends Application {
       lNameField.setPrefColumnCount(15);
       lNameField.setEditable(true);
       lNameField.setText("");
+      
+      prefTitleField = new TextField(); 
+      prefTitleField.setPrefColumnCount(15);
+      prefTitleField.setEditable(true);
+      prefTitleField.setText("");
       
       emailField = new TextField(); 
       emailField.setPrefColumnCount(15);
@@ -166,37 +183,25 @@ public class HotelReservation extends Application {
       gridPane.add(fNameField, 0,1);
       gridPane.add(lastName, 1, 0);
       gridPane.add(lNameField,1,1);
-      gridPane.add(email, 0,2);
-      gridPane.add(emailField, 0,3);
-      gridPane.add(address,0,4);
-      gridPane.add(addressField,0,5);
-      gridPane.add(country,0,6);
-      gridPane.add(countryField,0,7);
-      gridPane.add(city,0,8);
-      gridPane.add(cityField,0,9);
-      gridPane.add(state,0,10);
-      gridPane.add(stateField,0,11);
-      gridPane.add(postalCode,0,12);
-      gridPane.add(postalField,0,13);
-      gridPane.add(phoneNum,0,14);
-      gridPane.add(phoneField,0,15);
-      gridPane.add(saveButton,0,16);
-      gridPane.add(nextPageBtn,0,17);
+      gridPane.add(prefTitle,0,2);
+      gridPane.add(prefTitleField,0,3);
+      gridPane.add(email, 0,4);
+      gridPane.add(emailField, 0,5);
+      gridPane.add(address,0,6);
+      gridPane.add(addressField,0,7);
+      gridPane.add(country,0,8);
+      gridPane.add(countryField,0,9);
+      gridPane.add(city,0,10);
+      gridPane.add(cityField,0,11);
+      gridPane.add(state,0,12);
+      gridPane.add(stateField,0,13);
+      gridPane.add(postalCode,0,14);
+      gridPane.add(postalField,0,15);
+      gridPane.add(phoneNum,0,16);
+      gridPane.add(phoneField,0,17);
+      gridPane.add(nextPageBtn,0,18);
       
-        saveButton.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
-             try {
-                SaveFile();
-             }
-             catch (IOException e) {
-                 
-             }
-             
-       
-            }
-        });
+
         
         nextPageBtn.setOnAction(new EventHandler<ActionEvent>() {
             
@@ -214,30 +219,30 @@ public class HotelReservation extends Application {
                   numRooms = new Label ("Number of Rooms");
                   numGuests = new Label ("Number of Guests");
                   room2Type = new Label ("Room 2 Type (If Applicable)");
-                  
+                 
+    
                   guestsField = new TextField(); 
                   guestsField.setPrefColumnCount(15);
                   guestsField.setEditable(true);
                   guestsField.setText("");
+                  
                   
                   roomsField = new TextField(); 
                   roomsField.setPrefColumnCount(15);
                   roomsField.setEditable(true);
                   roomsField.setText("");
                   
-                  ChoiceBox<String> choiceBox = new ChoiceBox<>();
+                  choiceBox = new ComboBox<>();
                   
-                  choiceBox.getItems().add("Guest Room, 2 Queen");
-                  choiceBox.getItems().add("Guest Room, 1 Queen");
-                  choiceBox.getItems().add("Guest Room, 1 King");
-                  choiceBox.getItems().add("Executive Suite, 1 King, 1 Sofa");
+                  choiceBox.getItems().addAll("Guest Room, 2 Queen", "Guest Room, 1 Queen",
+                          "Guest Room, 1 King", "Executive Suite, 1 King, 1 Sofa");
+                 
                   
-                  ChoiceBox<String> cb2 = new ChoiceBox<>();
                   
-                  cb2.getItems().add("Guest Room, 2 Queen");
-                  cb2.getItems().add("Guest Room, 1 Queen");
-                  cb2.getItems().add("Guest Room, 1 King");
-                  cb2.getItems().add("Executive Suite, 1 King, 1 Sofa");
+                  cb2 = new ComboBox<>();
+                  
+                  cb2.getItems().addAll("Guest Room, 2 Queen", "Guest Room, 1 Queen",
+                          "Guest Room, 1 King", "Executive Suite, 1 King, 1 Sofa");
                            
                   gridPane.setPadding(new Insets(30, 30, 30, 30)); // Padding around  grid
                   gridPane.setHgap(10);                            // Spacing between columns
@@ -255,20 +260,48 @@ public class HotelReservation extends Application {
                   gridPane.add(choiceBox,0,9);
                   gridPane.add(room2Type,0,10);
                   gridPane.add(cb2,0,11);
-                  gridPane.add(paymentButton,0,12);
-                  gridPane.add(showRoomButton, 0, 13);
+                  gridPane.add(saveButton,0,12);
+                  gridPane.add(paymentButton,0,13);
+                  gridPane.add(showRoomButton, 0, 14);
                   
+                  
+                 
+                  
+                 
                  primaryStage.setTitle("Room Information");
                  primaryStage.setScene(scene);
                  primaryStage.show();
+                 
+
+
+            }
+            
+        });
+        
+          saveButton.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+             try {
+                SaveFile();
+             }
+             catch (IOException e) {
+                 
+             }
+             
        
             }
         });
         
+    
+        
+
         paymentButton.setOnAction(new EventHandler<ActionEvent>()  {
             
             @Override
             public void handle(ActionEvent event) {
+                
+               
             	Scene scene = null;
             	GridPane gridPane = null;
             	
@@ -297,7 +330,7 @@ public class HotelReservation extends Application {
             	ccvNumberField.setEditable(true);
             	ccvNumberField.setText("");
             	
-            	ChoiceBox<String> choiceBox = new ChoiceBox<>();
+            	ComboBox<String> choiceBox = new ComboBox<>();
             	
             	choiceBox.getItems().add("Visa");
             	choiceBox.getItems().add("MasterCard");
@@ -322,9 +355,11 @@ public class HotelReservation extends Application {
             	 primaryStage.setTitle("Payment Information");
                  primaryStage.setScene(scene);
                  primaryStage.show();
-       
+                 
+
             }
         });
+        
         
         showRoomButton.setOnAction(new EventHandler<ActionEvent>() {
             
@@ -332,15 +367,127 @@ public class HotelReservation extends Application {
             public void handle(ActionEvent event) {
              
             	Image image = new Image("file:download.jpg");
-        		ImageView imageView = new ImageView(image);
         		
-        		HBox hBox = new HBox(imageView);
-        		
+                        Button nextPage = new Button("Next Page");
+                        
+        		HBox hBox = new HBox();
+                        
+                        ImageView imageView = new ImageView(image);
+                        
+                        hBox.getChildren().addAll(nextPage,imageView );
+        	
         		Scene scene = new Scene(hBox);
-        		
+                        
         		primaryStage.setTitle("King Room");
         		primaryStage.setScene(scene);
-        		primaryStage.show();
+                        primaryStage.show();
+                        
+                        System.out.println(choiceBox.getValue());
+            }
+        });
+        
+           confirmationButton.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event)  {
+              try {
+                Scanner scnr = new Scanner(new File("guestInfo.txt"));
+                
+                //StringBuilder sb = new StringBuilder();
+        
+                 
+                 //String [] confirm = new String[14];
+
+                for (int i = 0; i < 1; i++) {
+                
+                    String fName = scnr.nextLine(); 
+                    String lName = scnr.nextLine();
+                    String guestEmail = scnr.nextLine(); 
+                    String guestAddress = scnr.nextLine(); 
+                    String guestCity = scnr.nextLine();
+                    String guestState = scnr.nextLine();
+                    String postalCode = scnr.nextLine();
+                    String guestPhoneNum = scnr.nextLine(); 
+                    String checkIn = scnr.nextLine();
+                    String checkOut = scnr.nextLine();
+                    String guestNum = scnr.nextLine(); 
+                    String rooms = scnr.nextLine();
+                    String room1 = scnr.nextLine();
+                    String room2 = scnr.nextLine();
+                    
+                    
+                    
+                 Button confirmButton = new Button("Confirm my Reservation");
+                 Person person = new Person();
+                 person.setFirstName(fName);
+                 person.setLastName(lName);
+                 person.setEmail(guestEmail);
+                 person.setAddress(guestAddress);
+                 person.setCity(guestCity);
+                 person.setState(guestState);
+                 person.setPostalCode(postalCode);
+                 person.setPhoneNumber(guestPhoneNum);
+                 
+
+        
+                 CheckIn checkIn1 = new CheckIn();
+                 checkIn1.setCheckInTime(checkIn);
+        
+                CheckOut checkOut1 = new CheckOut();
+                checkOut1.setCheckOutTime(checkOut);
+        
+                RoomAssignment roomAssignment = new RoomAssignment();
+                 roomAssignment.setType1(room1);
+                 roomAssignment.setType2(room2);
+        
+                 Label outputLabel = new Label();
+                 outputLabel.setText("Is this information correct?" + "\n" + "\n"
+                         + person.getFirstName() + " " + person.getLastName() +
+                         "\n" + person.getEmail() + "\n" + person.getAddress() + 
+                         " " + person.getCity() + ", " + person.getState() +
+                         " " + person.getPostalCode() + "\n" + person.getPhoneNumber() +
+                        "\n" + checkIn1.getCheckInTime() + "\n" 
+                         + checkOut1.getCheckOutTime() + "\n" + roomAssignment.getType1() 
+                        + "\n" + roomAssignment.getType2());
+                 
+                 VBox vbox = new VBox(10, outputLabel, confirmButton);
+                 vbox.setPadding(new Insets(10));
+                 vbox.setAlignment(Pos.CENTER);
+                 
+                     Scene scene = new Scene(vbox);
+                     primaryStage.setTitle("Review Your Reservation");
+                     primaryStage.setScene(scene);
+                     primaryStage.show();
+        
+         }
+                }
+              catch (IOException e) {
+                  
+              }
+            }
+            
+        });
+           confirmButton.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+             try {
+                 SendConfirmation();
+                 Label outputLabel = new Label ("A confirmation email has been sent "
+                         + "to your email regarding your reservation.");
+                       VBox vbox = new VBox(10, outputLabel);
+                vbox.setPadding(new Insets(10));
+                 vbox.setAlignment(Pos.CENTER);
+               
+                // Create a Scene and display it.
+                Scene scene = new Scene(vbox);
+                 primaryStage.setScene(scene);
+                primaryStage.show();
+             }
+             catch (MessagingException e) {
+                 
+             }
+ 
             }
         });
         
@@ -349,6 +496,7 @@ public class HotelReservation extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+    
     
     /**
      * @param args the command line arguments
@@ -361,22 +509,28 @@ public class HotelReservation extends Application {
         try {
             FileWriter filewriter;
             filewriter = new FileWriter("guestInfo.txt");
-            filewriter.write("Name: ");
             filewriter.write(fNameField.getText());
-            filewriter.write(" ");
+            filewriter.write("\n");
             filewriter.write(lNameField.getText());
             filewriter.write("\n");
-            filewriter.write("Email Address: ");
             filewriter.write(emailField.getText());
             filewriter.write("\n");
-            //filewriter.write(countryField.getText());
-            //filewriter.write("\n");
-             filewriter.write("Address: ");
-            filewriter.write(addressField.getText() + " " + cityField.getText()
-            + ", " + stateField.getText() + postalField.getText());
+            filewriter.write(addressField.getText() + "\n" + cityField.getText()
+            + "\n" + stateField.getText() + "\n" + postalField.getText());
             filewriter.write("\n");
-            filewriter.write("Phone Number: ");
             filewriter.write(phoneField.getText());
+            filewriter.write("\n");
+            filewriter.write("Check-In Date: " + dp.getValue());
+            filewriter.write("\n"); 
+            filewriter.write("Check-Out Date: " + dp2.getValue());
+            filewriter.write("\n");
+            filewriter.write("Guests: " + guestsField.getText());
+            filewriter.write("\n");
+            filewriter.write("Rooms: " + roomsField.getText());
+            filewriter.write("\n");
+            filewriter.write("Room 1 type: " + choiceBox.getValue());
+            filewriter.write("\n");
+            filewriter.write("Room 2 Type: " + cb2.getValue());
             filewriter.write("\n");
             filewriter.close();
             
@@ -385,16 +539,9 @@ public class HotelReservation extends Application {
             
         }
     }
- 
-    	public static int stringToInt(String s) {
-    	    try {
-    	        return Integer.valueOf(s);
-    	    } catch (NumberFormatException e) {
-    	        return 0;
-    	    }
-    	}
     
-      private void SendConfirmation () throws MessagingException {
+    
+    private void SendConfirmation () throws MessagingException {
       try {
           
       // Recipient's email ID needs to be mentioned.
@@ -410,7 +557,7 @@ public class HotelReservation extends Application {
       
       String subject = "Java Email Demo";
       
-      String messageText = "Hey, I am sending this email through my netbeans email";
+      String messageText = "Hello";
       
       boolean sessionDebug = false;
 
