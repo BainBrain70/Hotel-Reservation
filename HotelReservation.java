@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package hotelreservation;
-
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.stage.Stage;
@@ -350,14 +349,31 @@ public class HotelReservation extends Application {
             	gridPane.add(expDateField,0,7);
             	gridPane.add(ccvNumber,0,8);
             	gridPane.add(ccvNumberField, 0, 9);
-            	gridPane.add(confirmationButton, 0,10 );
+            	gridPane.add(confirmButton, 0,10 );
             	
             	 primaryStage.setTitle("Payment Information");
                  primaryStage.setScene(scene);
                  primaryStage.show();
                  
+                 System.out.println(dp2.getValue());
+                 
+           confirmButton.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+             try {
+                 SendConfirmation();
+             }
+             catch (MessagingException e) {
+                 
+             }
+ 
+            }
+        });
+                 
 
             }
+            
         });
         
         
@@ -382,7 +398,7 @@ public class HotelReservation extends Application {
         		primaryStage.setScene(scene);
                         primaryStage.show();
                         
-                        System.out.println(choiceBox.getValue());
+                        System.out.println(emailField.getText());
             }
         });
         
@@ -439,22 +455,17 @@ public class HotelReservation extends Application {
                 RoomAssignment roomAssignment = new RoomAssignment();
                  roomAssignment.setType1(room1);
                  roomAssignment.setType2(room2);
-        
-                 Label outputLabel = new Label();
-                 outputLabel.setText("Is this information correct?" + "\n" + "\n"
-                         + person.getFirstName() + " " + person.getLastName() +
-                         "\n" + person.getEmail() + "\n" + person.getAddress() + 
-                         " " + person.getCity() + ", " + person.getState() +
-                         " " + person.getPostalCode() + "\n" + person.getPhoneNumber() +
-                        "\n" + checkIn1.getCheckInTime() + "\n" 
-                         + checkOut1.getCheckOutTime() + "\n" + roomAssignment.getType1() 
-                        + "\n" + roomAssignment.getType2());
+       
                  
-                 VBox vbox = new VBox(10, outputLabel, confirmButton);
-                 vbox.setPadding(new Insets(10));
-                 vbox.setAlignment(Pos.CENTER);
+                Scene scene = null;         // Scene contains all content
+                GridPane gridPane = null;   // Positions components within scene
+      
+                    gridPane = new GridPane();   // Create an empty pane
+                    scene = new Scene(gridPane);
+      
+                    gridPane.add(confirmButton,0,0);
                  
-                     Scene scene = new Scene(vbox);
+                     
                      primaryStage.setTitle("Review Your Reservation");
                      primaryStage.setScene(scene);
                      primaryStage.show();
@@ -464,32 +475,11 @@ public class HotelReservation extends Application {
               catch (IOException e) {
                   
               }
+
             }
             
         });
-           confirmButton.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
-             try {
-                 SendConfirmation();
-                 Label outputLabel = new Label ("A confirmation email has been sent "
-                         + "to your email regarding your reservation.");
-                       VBox vbox = new VBox(10, outputLabel);
-                vbox.setPadding(new Insets(10));
-                 vbox.setAlignment(Pos.CENTER);
-               
-                // Create a Scene and display it.
-                Scene scene = new Scene(vbox);
-                 primaryStage.setScene(scene);
-                primaryStage.show();
-             }
-             catch (MessagingException e) {
-                 
-             }
- 
-            }
-        });
+
         
         
         primaryStage.setTitle("Guest Information");
@@ -557,7 +547,18 @@ public class HotelReservation extends Application {
       
       String subject = "Java Email Demo";
       
-      String messageText = "Hello";
+      String messageText = "Dear " + prefTitleField.getText() + " " + fNameField.getText() 
+              + " " + lNameField.getText() + ", " + "\n" + "\n" + "We have recieved your"
+              + " reservation." + "\n" + "\n" + "Please refer to the information below "
+              + "regarding your reservation details." + "\n" + "\n" + "Arrival: "
+              + dp.getValue() + "\n" + "Number of Guests: " + guestsField.getText()
+              + "\n" + "Number of Rooms: " + roomsField.getText() + "\n" + "Room Types: "
+              + choiceBox.getValue() + ", " + cb2.getValue() + "\n" + "Departure: "
+              + dp2.getValue() + "\n" + "\n" + "If you have any questions regarding"
+              + " this reservation, please feel free to contact us. Telephone: English"
+              + " Support 1 800 123 4567, Spanish Support 1 800 321 7654, Email:"
+              + " HotelJavaFresno@gmail.com" + "\n" + "\n" + "Yours sincerely, "
+              + "Hotel Java Fresno";
       
       boolean sessionDebug = false;
 
