@@ -7,6 +7,8 @@ package hotelreservation;
 
 import javafx.application.Application;
 import static javafx.application.Application.launch;
+
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
@@ -114,7 +116,7 @@ public class HotelReservation extends Application {
       Button showRoomButton = new Button("Show My Room");
       Button reviewButton = new Button("Review my Reservation");
       Button confirmButton = new Button ("Confirm my Reservation");
-      
+      Button validate = new Button("Validate info");
       
       firstName = new Label("First Name*");
       lastName = new Label("Last Name*");
@@ -183,6 +185,8 @@ public class HotelReservation extends Application {
       
       gridPane.add(firstName, 0,0);
       gridPane.add(fNameField, 0,1);
+     System.out.println(fNameField.getSelectedText());
+      
       gridPane.add(lastName, 1, 0);
       gridPane.add(lNameField,1,1);
       gridPane.add(prefTitle,0,2);
@@ -202,15 +206,22 @@ public class HotelReservation extends Application {
       gridPane.add(phoneNum,0,16);
       gridPane.add(phoneField,0,17);
       gridPane.add(nextPageBtn,0,18);
-      
-
-        
+      gridPane.add(validate, 0, 19);
+     
         nextPageBtn.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
             public void handle(ActionEvent event) {
-                  Scene scene = null;         // Scene contains all content
-                  GridPane gridPane = null;   // Positions components within scene
+                  
+            	/* while(ContainsInteger(fNameField.getText()) || ContainsInteger(lNameField.getText()) ||
+            		ContainsInteger(prefTitleField.getText()) || ContainsInteger(countryField.getText()) ||
+            		ContainsInteger(cityField.getText()) || ContainsInteger(stateField.getText()))
+            	 {
+            		 System.out.println("First name cannot contain an integer");
+            	 }
+            	 */
+            	  Scene scene = null;         // Scene contains all content
+                  GridPane gridPane = null;   // Positios components within scene
       
                   gridPane = new GridPane();   // Create an empty pane
                   scene = new Scene(gridPane);
@@ -237,14 +248,14 @@ public class HotelReservation extends Application {
                   choiceBox = new ComboBox<>();
                   
                   choiceBox.getItems().addAll("Guest Room, 2 Queen", "Guest Room, 1 Queen",
-                          "Guest Room, 1 King", "Executive Suite, 1 King, 1 Sofa");
+                          "Guest Room, 1 King", "Executive Suite");
                  
                   
                   
                   cb2 = new ComboBox<>();
                   
                   cb2.getItems().addAll("Guest Room, 2 Queen", "Guest Room, 1 Queen",
-                          "Guest Room, 1 King", "Executive Suite, 1 King, 1 Sofa");
+                          "Guest Room, 1 King", "Executive Suite");
                            
                   gridPane.setPadding(new Insets(30, 30, 30, 30)); // Padding around  grid
                   gridPane.setHgap(10);                            // Spacing between columns
@@ -317,7 +328,7 @@ public class HotelReservation extends Application {
             	cardSelect = new ComboBox<>();
             	
             	cardSelect.getItems().addAll("Visa","Master Card","American Express");
-
+            	
             	
             	gridPane.setPadding(new Insets(30, 30, 30, 30)); // Padding around  grid
                 gridPane.setHgap(10);                            // Spacing between columns
@@ -443,7 +454,7 @@ public class HotelReservation extends Application {
            
             confirmButton.setOnAction(new EventHandler<ActionEvent>() {
             
-            @Override
+            	        @Override
             public void handle(ActionEvent event) {
                try {
                    SendConfirmation();
@@ -467,14 +478,14 @@ public class HotelReservation extends Application {
                }
                
             }
-                 });
+                 }); 
        
             }
             
         });
            
 
-                 
+         
 
             }
             
@@ -485,25 +496,56 @@ public class HotelReservation extends Application {
             
             @Override
             public void handle(ActionEvent event) {
-             
-            	Image image = new Image("file:download.jpg");
+            	  ShowRoom();
+            	/*String pic = null;
+            	   String roomType = null;
+            	   if(choiceBox.getValue() == "Guest Room, 1 King")
+            	   {
+            		   pic = "file:download.jpg";
+            		   roomType = "Guest Room, 1 King";
+            	   }
+            	   else if(choiceBox.getValue() == "Guest Room, 1 Queen")
+            	   {
+            		   pic = "file:download2.jpg";
+            		   roomType = "Guest Room, 1 Queen";
+            	   }
+            	   else if(choiceBox.getValue() == "Guest Room, 2 Queen")
+            	   {
+            		   pic = "file:download3.jpg";
+            		   roomType = "Guest Room, 2 Queen";
+            	   }
+            	   else if(choiceBox.getValue() == "Executive Suite")
+            	   {
+            		   pic = "file:download4.jpg";
+            		   roomType = "Executive Suite";
+            	   }
+            	   else
+            	   {
+            		   Scene scene = null;
+            		   GridPane gridPane = null;
+            		   gridPane =  new GridPane();
+            		   scene = new Scene(gridPane);
+            		   
+            	   }
+            	Image image = new Image(pic);
         		
-                        Button nextPage = new Button("Next Page");
-                        
-        		HBox hBox = new HBox();
-                        
-                        ImageView imageView = new ImageView(image);
-                        
-                        hBox.getChildren().addAll(nextPage,imageView );
-        	
-        		Scene scene = new Scene(hBox);
-                        
-        		primaryStage.setTitle("King Room");
-        		primaryStage.setScene(scene);
-                        primaryStage.show();
-                        
-                        
-            }
+                Button nextPage = new Button("Next Page");
+                
+                HBox hBox = new HBox();
+                
+                ImageView imageView = new ImageView(image);
+                
+                hBox.getChildren().addAll(imageView);
+                hBox.setAlignment(Pos.CENTER);
+                Scene scene = new Scene(hBox,265,190);
+               
+		primaryStage.setTitle(roomType);
+		primaryStage.setScene(scene);
+        primaryStage.showAndWait();            
+             */
+             }
+           
+            
         });
         
            confirmationButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -527,10 +569,7 @@ public class HotelReservation extends Application {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        launch(args);
-    }
-    
+  
     private void SaveFile () throws IOException {
         try {
             FileWriter filewriter;
@@ -578,7 +617,7 @@ public class HotelReservation extends Application {
     
     
     
-    private void SendConfirmation () throws MessagingException {
+   private void SendConfirmation () throws MessagingException {
       try {
           
       // Recipient's email ID needs to be mentioned.
@@ -643,6 +682,67 @@ public class HotelReservation extends Application {
             System.out.println(ex);
         }
     }
-}
     
+   public static boolean ContainsInteger(String s) {
+	      boolean containsInteger = false;
+	      char[] temp = s.toCharArray();
+	       	for(int i = 0; i < s.length(); i++)
+	       	{
+	       		if(Character.isDigit(temp[i]))
+	       			{
+	       			   return true;
+	       			}
+	       	}
+	      return false;
+	   }
+	
+   public void ShowRoom()
+   {
+	   Stage window = new Stage();
+	   window.initModality(Modality.APPLICATION_MODAL);
+	   Button closeButton = new Button("Close Window");
+	   closeButton.setOnAction(e -> window.close());
+	   String pic = null;
+	   String roomType = null;
+	   if(choiceBox.getValue() == "Guest Room, 1 King")
+	   {
+		   pic = "file:download.jpg";
+		   roomType = "Guest Room, 1 King";
+	   }
+	   else if(choiceBox.getValue() == "Guest Room, 1 Queen")
+	   {
+		   pic = "file:download2.jpg";
+		   roomType = "Guest Room, 1 Queen";
+	   }
+	   else if(choiceBox.getValue() == "Guest Room, 2 Queen")
+	   {
+		   pic = "file:download3.jpg";
+		   roomType = "Guest Room, 2 Queen";
+	   }
+	   else if(choiceBox.getValue() == "Executive Suite")
+	   {
+		   pic = "file:download4.jpg";
+		   roomType = "Executive Suite";
+	   }
+	   else
+	   {
+		   
+	   }
+	Image image = new Image(pic);
+	   
+    VBox vBox = new VBox();
+    
+    ImageView imageView = new ImageView(image);
+    
+    vBox.getChildren().addAll(imageView, closeButton);
+    vBox.setAlignment(Pos.CENTER);
+    Scene scene = new Scene(vBox,265,220 );
+    window.setScene(scene);
+    window.showAndWait();
+    
+   }
 
+        public static void main(String[] args) {
+            launch(args);
+  }
+}      
