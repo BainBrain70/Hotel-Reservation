@@ -40,55 +40,136 @@ import java.util.Scanner;
  * @author CodyWickman
  */
 public class HotelReservation extends Application {
-     private Label firstName;
+    /*Creates a label object for the guest's first name */
+    private Label firstName;
+	
+    /*Creates a label object for the guest's last name */
     private Label lastName;
+    
+    /*Creates a label object for the guest's preferred title */
     private Label prefTitle;
+    
+    /*Creates a label object for the guest's email address*/
     private Label email;
+    
+    /*Creates a label object for the country the guest lives in */
     private Label country;
+    
+    /*Creates a label object for the state the guest lives in */
     private Label state;
+    
+    /*Creates a label object for the guest's address */
     private Label address;
+    
+    /*Creates a label object for the city that the guest lives in */    
     private Label city;
+    
+    /*Creates a label object for the guest's zip code */
     private Label postalCode;
+    
+    /*Creates a label object for the guest's phone number */
     private Label phoneNum;
     
+    /*Creates a label object for the type of credit card */
     private Label cardType;
+    
+    /*Creates a label object for the guest's credit card number */
     private Label cardNum;
+    
+    /*Creates a label object for the guest's credit card expiration date */
     private Label expirationDate;
+    
+    /*Creates a label object for the guest's name on their credit card */
     private Label nameOnCard;
+    
+    /*Creates a label object for the guest's CCV number */
     private Label ccvNumber;
     
+    /*Creates a label object for the first room type */
     private Label roomType;
+    
+    /*Creates a label object for the 2nd room type */
     private Label room2Type;
+    
+    /*Creates a label object for the number of rooms */
     private Label numRooms;
+    
+    /*Creates a label object for the number of guests */
     private Label numGuests;
+    
+    /*Creates a label object for the guest's check in date */
     private Label inDate;
+    
+    /*Creates a label object for the guest's check out date */
     private Label outDate;
+    
+    /*Creates a label object for the terms and conditions */
     private Label termsCond;
    
+    /*Creates a text field object type of room */
     private TextField roomsField;
+    
+    /*Creates a text field object type of room */
     private TextField guestsField;
+    
+    /*Creates a text field object type of room */
     private TextField fNameField;
+    
+    /*Creates a text field object type of room */
     private TextField lNameField;
+    
+    /*Creates a text field object type of room */
     private TextField prefTitleField;
+    
+    /*Creates a text field object type of room */
     private TextField emailField;
+    
+    /*Creates a text field object type of room */
     private TextField countryField;
+    
+    /*Creates a text field object type of room */
     private TextField stateField;
+    
+    /*Creates a text field object type of room */
     private TextField addressField;
+    
+    /*Creates a text field object type of room */
     private TextField cityField;
+    
+    /*Creates a text field object type of room */
     private TextField postalField;
+    
+    /*Creates a text field object type of room */
     private TextField phoneField;
   
+    /*Creates a text field object type of room */
     private TextField cardField;
+    
+    /*Creates a text field object type of room */
     private TextField cardNumField;
+    
+    /*Creates a text field object type of room */
     private TextField expDateField;
+    
+    /*Creates a text field object type of room */
     private TextField nameOnCardField;
+    
+    /*Creates a text field object type of room */
     private TextField ccvNumberField;
     
-    
+    /*Creates a text field object type of room */
     private TextField inDateField;
+    
+    /*Creates a text field object type of room */
     private TextField outDateField;
+    
+    /*Creates a text field object type of room */
     LocalDate ld;
+    
+    /*Creates a text field object type of room */
     DatePicker dp;
+    
+    /*Creates a text field object type of room */
     DatePicker dp2;
     ComboBox choiceBox;
     ComboBox cardSelect;
@@ -96,7 +177,8 @@ public class HotelReservation extends Application {
     ComboBox cardExpYear;
     ComboBox cb2;
     
-    //int i = 0;
+    int roomCost;
+    int nightsStayed;
     
     @Override
     public void start(Stage primaryStage) {
@@ -523,7 +605,18 @@ public class HotelReservation extends Application {
             
             @Override
             public void handle(ActionEvent event) {
-            	  ShowRoom();
+            	ShowRoom();
+            	nightsStayed = NumOfDays(dp.getValue(),dp2.getValue());
+              	System.out.println(NumOfDays(dp.getValue(),dp2.getValue()));
+                 
+              	try {
+  			roomCost = CostOfRoom(nightsStayed, choiceBox.getValue());
+  		    } 
+		    catch (FileNotFoundException e1) 
+		    {
+  			e1.printStackTrace();
+  		    }
+              	System.out.println(roomCost);
              }
            
             
@@ -725,6 +818,60 @@ public class HotelReservation extends Application {
     window.showAndWait();
     
    }
+	 public int NumOfDays(LocalDate d1, LocalDate d2)
+   {
+	   int day1;
+	   int day2;
+	   int numOfNights = 0;
+	   day1 = d1.getDayOfYear();
+	   day2 = d2.getDayOfYear();
+	   numOfNights = day2 - day1;
+	   return numOfNights;
+   }
+   
+   public int CostOfRoom(int num, Object room) throws FileNotFoundException
+   {
+	   int cost = 0;
+	   int queen1 = 0;
+	   int  queen2 = 0;
+	   int king1 = 0;
+	   int executive = 0;
+	   try {
+		   Scanner scnr = new Scanner(new File("cost.txt"));
+		   while(scnr.hasNextInt())
+		   {
+			   queen1 = scnr.nextInt();
+			   queen2 = scnr.nextInt();
+			   king1 = scnr.nextInt(); 
+			   executive = scnr.nextInt();
+		   }
+		   if(room == "Guest Room, 1 Queen" )
+		   {
+			   cost = num * queen1;
+		   }
+		   else if(room == "Guest Room, 2 Queen" )
+		   {
+			   cost = num * queen2;
+		   }
+		   else if(room == "Guest Room, 1 King" )
+		   {
+			   cost = num * king1;
+		   }
+		   else if(room == "Executive Suite")
+		   {
+			   cost = num * executive;
+		   }
+		   else
+		   {
+			   System.out.println("Could not calculate room cost");
+		   }
+		   
+	   }catch(IOException e){
+		   
+	   }
+	   return cost;
+   }
+
 
         public static void main(String[] args) {
             launch(args);
