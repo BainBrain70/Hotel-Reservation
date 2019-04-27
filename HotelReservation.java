@@ -7,7 +7,6 @@ package hotelreservation;
 
 import javafx.application.Application;
 import static javafx.application.Application.launch;
-
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -93,6 +92,8 @@ public class HotelReservation extends Application {
     DatePicker dp2;
     ComboBox choiceBox;
     ComboBox cardSelect;
+    ComboBox cardExpMonth;
+    ComboBox cardExpYear;
     ComboBox cb2;
     
     //int i = 0;
@@ -196,7 +197,7 @@ public class HotelReservation extends Application {
       gridPane.add(address,0,6);
       gridPane.add(addressField,0,7);
       gridPane.add(country,0,8);
-      gridPane.add(countryField,0,9);
+      gridPane.add(countryField,0,9);  
       gridPane.add(city,0,10);
       gridPane.add(cityField,0,11);
       gridPane.add(state,0,12);
@@ -207,19 +208,31 @@ public class HotelReservation extends Application {
       gridPane.add(phoneField,0,17);
       gridPane.add(nextPageBtn,0,18);
       gridPane.add(validate, 0, 19);
+      
+      
+           validate.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+            	              	 if (ContainsInteger(fNameField.getText()) || ContainsInteger(lNameField.getText()) ||
+            		ContainsInteger(prefTitleField.getText()) || ContainsInteger(countryField.getText()) ||
+            		ContainsInteger(cityField.getText()) || ContainsInteger(stateField.getText()))
+            	 {
+            		 Alert alert = new Alert(AlertType.ERROR,"First name cannot contain an integer");
+                         alert.showAndWait();
+            	 }
+             }
+           
+            
+        });
      
         nextPageBtn.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
             public void handle(ActionEvent event) {
                   
-            	/* while(ContainsInteger(fNameField.getText()) || ContainsInteger(lNameField.getText()) ||
-            		ContainsInteger(prefTitleField.getText()) || ContainsInteger(countryField.getText()) ||
-            		ContainsInteger(cityField.getText()) || ContainsInteger(stateField.getText()))
-            	 {
-            		 System.out.println("First name cannot contain an integer");
-            	 }
-            	 */
+
+            	 
             	  Scene scene = null;         // Scene contains all content
                   GridPane gridPane = null;   // Positios components within scene
       
@@ -328,6 +341,18 @@ public class HotelReservation extends Application {
             	cardSelect = new ComboBox<>();
             	
             	cardSelect.getItems().addAll("Visa","Master Card","American Express");
+                
+                cardExpMonth = new ComboBox<>();
+                
+                cardExpMonth.getItems().addAll("01 - Janruary", "02 - February"
+                , "03 - March", "04 - April", "05 - May", "06 - June", "07 - July"
+                , "08 - August", "09 - September", "10 - October", "11 - November"
+                , "12 - December");
+                
+                cardExpYear = new ComboBox<>();
+                
+                cardExpYear.getItems().addAll("2019", "2020", "2021", "2022",
+                        "2023", "2024");
             	
             	
             	gridPane.setPadding(new Insets(30, 30, 30, 30)); // Padding around  grid
@@ -341,11 +366,12 @@ public class HotelReservation extends Application {
             	gridPane.add(cardNum, 0, 4);
             	gridPane.add(cardNumField, 0, 5);
             	gridPane.add(expirationDate, 0, 6);
-            	gridPane.add(expDateField,0,7);
-            	gridPane.add(ccvNumber,0,8);
-            	gridPane.add(ccvNumberField, 0, 9);
-                gridPane.add(saveButton,0,10);
-            	gridPane.add(reviewButton, 0,11);
+            	gridPane.add(cardExpMonth,0,7);
+                gridPane.add(cardExpYear,0,8);
+            	gridPane.add(ccvNumber,0,9);
+            	gridPane.add(ccvNumberField, 0, 10);
+                gridPane.add(saveButton,0,11);
+            	gridPane.add(reviewButton, 0,12);
             	
             	 primaryStage.setTitle("Payment Information");
                  primaryStage.setScene(scene);
@@ -451,10 +477,11 @@ public class HotelReservation extends Application {
               catch (IOException e) {
                   System.out.println("Could not read from file");
               }
+                        
            
             confirmButton.setOnAction(new EventHandler<ActionEvent>() {
             
-            	        @Override
+           @Override
             public void handle(ActionEvent event) {
                try {
                    SendConfirmation();
@@ -497,7 +524,6 @@ public class HotelReservation extends Application {
             @Override
             public void handle(ActionEvent event) {
             	  ShowRoom();
-            	
              }
            
             
@@ -558,7 +584,8 @@ public class HotelReservation extends Application {
             filewriter.write("\n");
             filewriter.write("Card Number: " + cardNumField.getText());
             filewriter.write("\n");
-            filewriter.write("Expiration: " + expDateField.getText());
+            filewriter.write("Expiration: " + cardExpMonth.getValue() + "/" +
+                    cardExpYear.getValue());
             filewriter.write("\n");
             filewriter.write("CCV Number: " + ccvNumberField.getText());
             
@@ -653,13 +680,15 @@ public class HotelReservation extends Application {
 	
    public void ShowRoom()
    {
-	   Stage window = new Stage();
-	   window.initModality(Modality.APPLICATION_MODAL);
-	   Button closeButton = new Button("Close Window");
-	   closeButton.setOnAction(e -> window.close());
-	   String pic = null;
-	   String roomType = null;
-	   if(choiceBox.getValue() == "Guest Room, 1 King")
+	  
+       Stage window = new Stage();
+       window.initModality(Modality.APPLICATION_MODAL);
+       Button closeButton = new Button("Close Window");
+       closeButton.setOnAction(e -> window.close());
+       String pic = null;
+       String roomType = null;
+	   
+          if(choiceBox.getValue() == "Guest Room, 1 King")
 	   {
 		   pic = "file:download.jpg";
 		   roomType = "Guest Room, 1 King";
