@@ -40,10 +40,10 @@ import java.util.Scanner;
  * @author CodyWickman
  */
 public class HotelReservation extends Application {
-   /*Creates a label object for the guest's first name */
-	private Label firstName;
+    /*Creates a label object for the guest's first name */
+    private Label firstName;
 	
-	/*Creates a label object for the guest's last name */
+    /*Creates a label object for the guest's last name */
     private Label lastName;
     
     /*Creates a label object for the guest's preferred title */
