@@ -40,136 +40,55 @@ import java.util.Scanner;
  * @author CodyWickman
  */
 public class HotelReservation extends Application {
-    /*Creates a label object for the guest's first name */
-    private Label firstName;
-	
-    /*Creates a label object for the guest's last name */
+     private Label firstName;
     private Label lastName;
-    
-    /*Creates a label object for the guest's preferred title */
     private Label prefTitle;
-    
-    /*Creates a label object for the guest's email address*/
     private Label email;
-    
-    /*Creates a label object for the country the guest lives in */
     private Label country;
-    
-    /*Creates a label object for the state the guest lives in */
     private Label state;
-    
-    /*Creates a label object for the guest's address */
     private Label address;
-    
-    /*Creates a label object for the city that the guest lives in */    
     private Label city;
-    
-    /*Creates a label object for the guest's zip code */
     private Label postalCode;
-    
-    /*Creates a label object for the guest's phone number */
     private Label phoneNum;
     
-    /*Creates a label object for the type of credit card */
     private Label cardType;
-    
-    /*Creates a label object for the guest's credit card number */
     private Label cardNum;
-    
-    /*Creates a label object for the guest's credit card expiration date */
     private Label expirationDate;
-    
-    /*Creates a label object for the guest's name on their credit card */
     private Label nameOnCard;
-    
-    /*Creates a label object for the guest's CCV number */
     private Label ccvNumber;
     
-    /*Creates a label object for the first room type */
     private Label roomType;
-    
-    /*Creates a label object for the 2nd room type */
     private Label room2Type;
-    
-    /*Creates a label object for the number of rooms */
     private Label numRooms;
-    
-    /*Creates a label object for the number of guests */
     private Label numGuests;
-    
-    /*Creates a label object for the guest's check in date */
     private Label inDate;
-    
-    /*Creates a label object for the guest's check out date */
     private Label outDate;
-    
-    /*Creates a label object for the terms and conditions */
     private Label termsCond;
    
-    /*Creates a text field object type of room */
     private TextField roomsField;
-    
-    /*Creates a text field object type of room */
     private TextField guestsField;
-    
-    /*Creates a text field object type of room */
     private TextField fNameField;
-    
-    /*Creates a text field object type of room */
     private TextField lNameField;
-    
-    /*Creates a text field object type of room */
     private TextField prefTitleField;
-    
-    /*Creates a text field object type of room */
     private TextField emailField;
-    
-    /*Creates a text field object type of room */
     private TextField countryField;
-    
-    /*Creates a text field object type of room */
     private TextField stateField;
-    
-    /*Creates a text field object type of room */
     private TextField addressField;
-    
-    /*Creates a text field object type of room */
     private TextField cityField;
-    
-    /*Creates a text field object type of room */
     private TextField postalField;
-    
-    /*Creates a text field object type of room */
     private TextField phoneField;
   
-    /*Creates a text field object type of room */
     private TextField cardField;
-    
-    /*Creates a text field object type of room */
     private TextField cardNumField;
-    
-    /*Creates a text field object type of room */
     private TextField expDateField;
-    
-    /*Creates a text field object type of room */
     private TextField nameOnCardField;
-    
-    /*Creates a text field object type of room */
     private TextField ccvNumberField;
     
-    /*Creates a text field object type of room */
+    
     private TextField inDateField;
-    
-    /*Creates a text field object type of room */
     private TextField outDateField;
-    
-    /*Creates a text field object type of room */
     LocalDate ld;
-    
-    /*Creates a text field object type of room */
     DatePicker dp;
-    
-    /*Creates a text field object type of room */
     DatePicker dp2;
     ComboBox choiceBox;
     ComboBox cardSelect;
@@ -179,6 +98,8 @@ public class HotelReservation extends Application {
     
     int roomCost;
     int nightsStayed;
+    
+    //int i = 0;
     
     @Override
     public void start(Stage primaryStage) {
@@ -200,98 +121,136 @@ public class HotelReservation extends Application {
       Button reviewButton = new Button("Review my Reservation");
       Button confirmButton = new Button ("Confirm my Reservation");
       Button validate = new Button("Validate info");
+      Button bookButton = new Button("Book A Room");
       
-      firstName = new Label("First Name*");
-      lastName = new Label("Last Name*");
-      prefTitle = new Label("Preferred Title");
-      email = new Label ("Email Address*");
-      address = new Label ("Address*");
-      country = new Label ("Country / Reigon*");
-      city = new Label("City*");
-      state = new Label("State*");
-      postalCode = new Label ("Postal Code*");
-      phoneNum = new Label("Phone Number*");
+      String pic = "file:hotelPic.jpg";
       
-      fNameField = new TextField(); 
-      fNameField.setPrefColumnCount(15);
-      fNameField.setEditable(true);
-      fNameField.setText("");
+      Image image = new Image(pic);
       
-      lNameField = new TextField(); 
-      lNameField.setPrefColumnCount(15);
-      lNameField.setEditable(true);
-      lNameField.setText("");
+      VBox vBox = new VBox();
       
-      prefTitleField = new TextField(); 
-      prefTitleField.setPrefColumnCount(15);
-      prefTitleField.setEditable(true);
-      prefTitleField.setText("");
+      Label outputLabel = new Label("Welcome");
       
-      emailField = new TextField(); 
-      emailField.setPrefColumnCount(15);
-      emailField.setEditable(true);
-      emailField.setText("");
+      outputLabel.setText("Welcome to Hotel Java Fresno!");
       
-      addressField = new TextField(); 
-      addressField.setPrefColumnCount(15);
-      addressField.setEditable(true);
-      addressField.setText("");
+      ImageView imageView = new ImageView(image);
       
-      countryField = new TextField(); 
-      countryField.setPrefColumnCount(15);
-      countryField.setEditable(true);
-      countryField.setText("");
+      vBox.getChildren().addAll(imageView,outputLabel, bookButton);
       
-      stateField = new TextField(); 
-      stateField.setPrefColumnCount(15);
-      stateField.setEditable(true);
-      stateField.setText("");
+      vBox.setAlignment(Pos.CENTER);
       
-      cityField = new TextField(); 
-      cityField.setPrefColumnCount(15);
-      cityField.setEditable(true);
-      cityField.setText("");
-      
-      postalField = new TextField(); 
-      postalField.setPrefColumnCount(15);
-      postalField.setEditable(true);
-      postalField.setText("");
-      
-      phoneField = new TextField(); 
-      phoneField.setPrefColumnCount(15);
-      phoneField.setEditable(true);
-      phoneField.setText("");
-      
-      gridPane.setPadding(new Insets(30, 30, 30, 30)); // Padding around  grid
-      gridPane.setHgap(10);                            // Spacing between columns
-      gridPane.setVgap(10); 
-      
-      gridPane.add(firstName, 0,0);
-      gridPane.add(fNameField, 0,1);
-     System.out.println(fNameField.getSelectedText());
-      
-      gridPane.add(lastName, 1, 0);
-      gridPane.add(lNameField,1,1);
-      gridPane.add(prefTitle,0,2);
-      gridPane.add(prefTitleField,0,3);
-      gridPane.add(email, 0,4);
-      gridPane.add(emailField, 0,5);
-      gridPane.add(address,0,6);
-      gridPane.add(addressField,0,7);
-      gridPane.add(country,0,8);
-      gridPane.add(countryField,0,9);  
-      gridPane.add(city,0,10);
-      gridPane.add(cityField,0,11);
-      gridPane.add(state,0,12);
-      gridPane.add(stateField,0,13);
-      gridPane.add(postalCode,0,14);
-      gridPane.add(postalField,0,15);
-      gridPane.add(phoneNum,0,16);
-      gridPane.add(phoneField,0,17);
-      gridPane.add(nextPageBtn,0,18);
-      gridPane.add(validate, 0, 19);
+      scene = new Scene(vBox, 600,600);
       
       
+      
+     
+      
+        
+      
+        bookButton.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                
+                 Scene scene = null;         // Scene contains all content
+                GridPane gridPane = null;   // Positions components within scene
+      
+                 gridPane = new GridPane();   // Create an empty pane
+                 scene = new Scene(gridPane);
+                 
+                 firstName = new Label("First Name*");
+                 lastName = new Label("Last Name*");
+                 prefTitle = new Label("Preferred Title");
+                 email = new Label ("Email Address*");
+                 address = new Label ("Address*");
+                 country = new Label ("Country / Reigon*");
+                 city = new Label("City*");
+                 state = new Label("State*");
+                postalCode = new Label ("Postal Code*");
+                 phoneNum = new Label("Phone Number*");
+      
+                fNameField = new TextField(); 
+                fNameField.setPrefColumnCount(15);
+                fNameField.setEditable(true);
+                fNameField.setText("");
+      
+                lNameField = new TextField(); 
+                lNameField.setPrefColumnCount(15);
+                lNameField.setEditable(true);
+                lNameField.setText("");
+      
+                prefTitleField = new TextField(); 
+                prefTitleField.setPrefColumnCount(15);
+                prefTitleField.setEditable(true);
+                prefTitleField.setText("");
+      
+                emailField = new TextField(); 
+                emailField.setPrefColumnCount(15);
+                emailField.setEditable(true);
+                emailField.setText("");
+      
+                addressField = new TextField(); 
+                addressField.setPrefColumnCount(15);
+                addressField.setEditable(true);
+                addressField.setText("");
+      
+                countryField = new TextField(); 
+                countryField.setPrefColumnCount(15);
+                countryField.setEditable(true);
+                countryField.setText("");
+      
+                stateField = new TextField(); 
+                stateField.setPrefColumnCount(15);
+                stateField.setEditable(true);
+                stateField.setText("");
+      
+                cityField = new TextField(); 
+                cityField.setPrefColumnCount(15);
+                cityField.setEditable(true);
+                cityField.setText("");
+      
+                postalField = new TextField(); 
+                postalField.setPrefColumnCount(15);
+                postalField.setEditable(true);
+                postalField.setText("");
+      
+                phoneField = new TextField(); 
+                phoneField.setPrefColumnCount(15);
+                phoneField.setEditable(true);
+                phoneField.setText("");
+      
+            gridPane.setPadding(new Insets(30, 30, 30, 30)); // Padding around  grid
+            gridPane.setHgap(10);                            // Spacing between columns
+            gridPane.setVgap(10); 
+      
+             gridPane.add(firstName, 0,0);
+             gridPane.add(fNameField, 0,1);
+             gridPane.add(lastName, 1, 0);
+             gridPane.add(lNameField,1,1);
+             gridPane.add(prefTitle,0,2);
+             gridPane.add(prefTitleField,0,3);
+             gridPane.add(email, 0,4);
+             gridPane.add(emailField, 0,5);
+             gridPane.add(address,0,6);
+             gridPane.add(addressField,0,7);
+             gridPane.add(country,0,8);
+             gridPane.add(countryField,0,9);  
+             gridPane.add(city,0,10);
+             gridPane.add(cityField,0,11);
+             gridPane.add(state,0,12);
+             gridPane.add(stateField,0,13);
+             gridPane.add(postalCode,0,14);
+             gridPane.add(postalField,0,15);
+             gridPane.add(phoneNum,0,16);
+             gridPane.add(phoneField,0,17);
+             gridPane.add(nextPageBtn,0,18);
+             gridPane.add(validate, 0, 19);
+      
+                 primaryStage.setTitle("Guest Information");
+                 primaryStage.setScene(scene);
+                 primaryStage.show();
+                 
+                 
            validate.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
@@ -307,8 +266,8 @@ public class HotelReservation extends Application {
            
             
         });
-     
-        nextPageBtn.setOnAction(new EventHandler<ActionEvent>() {
+           
+           nextPageBtn.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
             public void handle(ActionEvent event) {
@@ -384,7 +343,12 @@ public class HotelReservation extends Application {
             }
             
         });
-     
+             
+       
+            }
+        });
+                
+
 
         paymentButton.setOnAction(new EventHandler<ActionEvent>()  {
             
@@ -605,18 +569,19 @@ public class HotelReservation extends Application {
             
             @Override
             public void handle(ActionEvent event) {
-            	ShowRoom();
-            	nightsStayed = NumOfDays(dp.getValue(),dp2.getValue());
-              	System.out.println(NumOfDays(dp.getValue(),dp2.getValue()));
-                 
-              	try {
-  			roomCost = CostOfRoom(nightsStayed, choiceBox.getValue());
-  		    } 
-		    catch (FileNotFoundException e1) 
-		    {
-  			e1.printStackTrace();
-  		    }
-              	System.out.println(roomCost);
+            	  ShowRoom();
+                  nightsStayed = NumOfDays(dp.getValue(),dp2.getValue());
+                  System.out.println(NumOfDays(dp.getValue(),dp2.getValue()));
+                  
+                  try {
+                      roomCost = CostOfRoom(nightsStayed, choiceBox.getValue());
+                  }
+                  
+                  catch (FileNotFoundException e1) {
+                      e1.printStackTrace();
+                  }
+                  
+                  System.out.println(roomCost);
              }
            
             
@@ -634,7 +599,7 @@ public class HotelReservation extends Application {
 
         
         
-        primaryStage.setTitle("Guest Information");
+        primaryStage.setTitle("Welcome!");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -818,8 +783,9 @@ public class HotelReservation extends Application {
     window.showAndWait();
     
    }
-	 public int NumOfDays(LocalDate d1, LocalDate d2)
-   {
+   
+     public int NumOfDays(LocalDate d1, LocalDate d2)
+      {
 	   int day1;
 	   int day2;
 	   int numOfNights = 0;
@@ -871,7 +837,8 @@ public class HotelReservation extends Application {
 	   }
 	   return cost;
    }
-
+   
+   
 
         public static void main(String[] args) {
             launch(args);
