@@ -40,56 +40,138 @@ import java.util.Scanner;
  * @author CodyWickman
  */
 public class HotelReservation extends Application {
-     private Label firstName;
+   /*Creates a label object for the guest's first name */
+	private Label firstName;
+	
+	/*Creates a label object for the guest's last name */
     private Label lastName;
+    
+    /*Creates a label object for the guest's preferred title */
     private Label prefTitle;
+    
+    /*Creates a label object for the guest's email address*/
     private Label email;
+    
+    /*Creates a label object for the country the guest lives in */
     private Label country;
+    
+    /*Creates a label object for the state the guest lives in */
     private Label state;
+    
+    /*Creates a label object for the guest's address */
     private Label address;
+    
+    /*Creates a label object for the city that the guest lives in */    
     private Label city;
+    
+    /*Creates a label object for the guest's zip code */
     private Label postalCode;
+    
+    /*Creates a label object for the guest's phone number */
     private Label phoneNum;
     
+    /*Creates a label object for the type of credit card */
     private Label cardType;
+    
+    /*Creates a label object for the guest's credit card number */
     private Label cardNum;
+    
+    /*Creates a label object for the guest's credit card expiration date */
     private Label expirationDate;
+    
+    /*Creates a label object for the guest's name on their credit card */
     private Label nameOnCard;
+    
+    /*Creates a label object for the guest's CCV number */
     private Label ccvNumber;
     
+    /*Creates a label object for the first room type */
     private Label roomType;
+    
+    /*Creates a label object for the 2nd room type */
     private Label room2Type;
+    
+    /*Creates a label object for the number of rooms */
     private Label numRooms;
+    
+    /*Creates a label object for the number of guests */
     private Label numGuests;
+    
+    /*Creates a label object for the guest's check in date */
     private Label inDate;
+    
+    /*Creates a label object for the guest's check out date */
     private Label outDate;
+    
+    /*Creates a label object for the terms and conditions */
     private Label termsCond;
    
+    /*Creates a text field object type of room */
     private TextField roomsField;
+    
+    /*Creates a text field object type of room */
     private TextField guestsField;
+    
+    /*Creates a text field object type of room */
     private TextField fNameField;
+    
+    /*Creates a text field object type of room */
     private TextField lNameField;
+    
+    /*Creates a text field object type of room */
     private TextField prefTitleField;
+    
+    /*Creates a text field object type of room */
     private TextField emailField;
+    
+    /*Creates a text field object type of room */
     private TextField countryField;
+    
+    /*Creates a text field object type of room */
     private TextField stateField;
+    
+    /*Creates a text field object type of room */
     private TextField addressField;
+    
+    /*Creates a text field object type of room */
     private TextField cityField;
+    
+    /*Creates a text field object type of room */
     private TextField postalField;
+    
+    /*Creates a text field object type of room */
     private TextField phoneField;
   
+    /*Creates a text field object type of room */
     private TextField cardField;
+    
+    /*Creates a text field object type of room */
     private TextField cardNumField;
+    
+    /*Creates a text field object type of room */
     private TextField expDateField;
+    
+    /*Creates a text field object type of room */
     private TextField nameOnCardField;
+    
+    /*Creates a text field object type of room */
     private TextField ccvNumberField;
     
-    
+    /*Creates a text field object type of room */
     private TextField inDateField;
+    
+    /*Creates a text field object type of room */
     private TextField outDateField;
+    
+    /*Creates a text field object type of room */
     LocalDate ld;
+    
+    /*Creates a text field object type of room */
     DatePicker dp;
+    
+    /*Creates a text field object type of room */
     DatePicker dp2;
+    
     ComboBox choiceBox;
     ComboBox cardSelect;
     ComboBox cardExpMonth;
