@@ -497,52 +497,7 @@ public class HotelReservation extends Application {
             @Override
             public void handle(ActionEvent event) {
             	  ShowRoom();
-            	/*String pic = null;
-            	   String roomType = null;
-            	   if(choiceBox.getValue() == "Guest Room, 1 King")
-            	   {
-            		   pic = "file:download.jpg";
-            		   roomType = "Guest Room, 1 King";
-            	   }
-            	   else if(choiceBox.getValue() == "Guest Room, 1 Queen")
-            	   {
-            		   pic = "file:download2.jpg";
-            		   roomType = "Guest Room, 1 Queen";
-            	   }
-            	   else if(choiceBox.getValue() == "Guest Room, 2 Queen")
-            	   {
-            		   pic = "file:download3.jpg";
-            		   roomType = "Guest Room, 2 Queen";
-            	   }
-            	   else if(choiceBox.getValue() == "Executive Suite")
-            	   {
-            		   pic = "file:download4.jpg";
-            		   roomType = "Executive Suite";
-            	   }
-            	   else
-            	   {
-            		   Scene scene = null;
-            		   GridPane gridPane = null;
-            		   gridPane =  new GridPane();
-            		   scene = new Scene(gridPane);
-            		   
-            	   }
-            	Image image = new Image(pic);
-        		
-                Button nextPage = new Button("Next Page");
-                
-                HBox hBox = new HBox();
-                
-                ImageView imageView = new ImageView(image);
-                
-                hBox.getChildren().addAll(imageView);
-                hBox.setAlignment(Pos.CENTER);
-                Scene scene = new Scene(hBox,265,190);
-               
-		primaryStage.setTitle(roomType);
-		primaryStage.setScene(scene);
-        primaryStage.showAndWait();            
-             */
+            	
              }
            
             
