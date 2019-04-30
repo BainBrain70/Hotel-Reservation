@@ -35,6 +35,7 @@ import javax.mail.internet.*;
 import javax.activation.*;
 import javax.mail.internet.MimeMessage;
 import java.util.Scanner;
+import java.util.Random;
 /**
  *
  * @author CodyWickman
@@ -96,10 +97,10 @@ public class HotelReservation extends Application {
     ComboBox cardExpYear;
     ComboBox cb2;
     
-    int roomCost;
+    double roomCost;
     int nightsStayed;
     
-    //int i = 0;
+    
     
     @Override
     public void start(Stage primaryStage) {
@@ -261,9 +262,17 @@ public class HotelReservation extends Application {
                          alert.showAndWait();
               }
               
-              else if (phoneField.getText().length() != 10) {
+              else if(postalField.getText().length() != 5 || !ContainsInteger
+                      (postalField.getText())) {
+                   Alert alert = new Alert(AlertType.ERROR,"Postal Code must "
+                           + "only be 5 digits and contain no Characters");
+                  alert.showAndWait();
+              }
+              
+              else if (phoneField.getText().length() != 10 || !ContainsInteger
+                      (phoneField.getText())) {
                   Alert alert = new Alert(AlertType.ERROR,"Phone number must be"
-                          + " 10 digits");
+                          + " 10 digits and have no Characters");
                   alert.showAndWait();
               }
               
@@ -283,7 +292,7 @@ public class HotelReservation extends Application {
               {
                Alert alert = new Alert(AlertType.ERROR,"City cannot contain an"
                        + " integer");
-                         alert.showAndWait();     
+                         alert.showAndWait();  
             	 }
                  else if (ContainsInteger(stateField.getText()))
               {
@@ -346,7 +355,7 @@ public class HotelReservation extends Application {
                  
          previousPage1.setOnAction( e -> window.setScene(scene2));
         
-         
+         /////
          showRoomButton.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
@@ -356,6 +365,11 @@ public class HotelReservation extends Application {
                   System.out.println(NumOfDays(dp.getValue(),dp2.getValue()));
                   
                   try {
+                      /*CostOfRoom Method is called, nights stayed takes first
+                        parameter while the room they select in the choice box 
+                        takes the second parameter.
+                      */
+                      nightsStayed = NumOfDays(dp.getValue(),dp2.getValue());
                       roomCost = CostOfRoom(nightsStayed, choiceBox.getValue());
                   }
                   
@@ -446,24 +460,32 @@ public class HotelReservation extends Application {
                 cardExpYear.getItems().addAll("2019", "2020", "2021", "2022",
                         "2023", "2024");
             	
+               
+                Label outputLabel2 = new Label("HI");
+                outputLabel2.setText("Total Cost: " );
+                
+                Label outputLabel1 = new Label("Hello");
+                outputLabel1.setText(String.format("$%.2f" , roomCost));
             	
             	gridPane.setPadding(new Insets(30, 30, 30, 30)); 
                 gridPane.setHgap(10);                            
                 gridPane.setVgap(10);
             	
-                gridPane.add(nameOnCard, 0, 0);
-                gridPane.add(nameOnCardField, 0, 1);
-            	gridPane.add(cardType,0,2);
-            	gridPane.add(cardSelect, 0,3);
-            	gridPane.add(cardNum, 0, 4);
-            	gridPane.add(cardNumField, 0, 5);
-            	gridPane.add(expirationDate, 0, 6);
-            	gridPane.add(cardExpMonth,0,7);
-                gridPane.add(cardExpYear,0,8);
-            	gridPane.add(ccvNumber,0,9);
-            	gridPane.add(ccvNumberField, 0, 10);
-            	gridPane.add(reviewButton, 0,11);
-                gridPane.add(previousPage2,0,12);
+                gridPane.add(outputLabel2,0,0);
+                gridPane.add(outputLabel1,0,1);
+                gridPane.add(nameOnCard, 0, 2);
+                gridPane.add(nameOnCardField, 0, 3);
+            	gridPane.add(cardType,0,4);
+            	gridPane.add(cardSelect, 0,5);
+            	gridPane.add(cardNum, 0, 6);
+            	gridPane.add(cardNumField, 0, 7);
+            	gridPane.add(expirationDate, 0, 8);
+            	gridPane.add(cardExpMonth,0,9);
+                gridPane.add(cardExpYear,0,10);
+            	gridPane.add(ccvNumber,0,11);
+            	gridPane.add(ccvNumberField, 0, 12);
+            	gridPane.add(reviewButton, 0,13);
+                gridPane.add(previousPage2,0,14);
             	
             	 primaryStage.setTitle("Payment Information");
                  primaryStage.setScene(scene4);
@@ -492,11 +514,12 @@ public class HotelReservation extends Application {
                          alert.showAndWait(); 
               }
               
-              else if (cardNumField.getText().length() != 16) 
+              else if (cardNumField.getText().length() != 16 || !ContainsInteger
+                      (cardNumField.getText())) 
               {
                   
                   Alert alert = new Alert(AlertType.ERROR,"Please enter a valid"
-                          + " card number with 16 digits");
+                          + " card number with 16 digits and no Characters");
                   alert.showAndWait();
               }
               
@@ -576,6 +599,7 @@ public class HotelReservation extends Application {
                  payment.setSecurityNum(ccvNum);
                  payment.setExpDate(cardExp);
                  payment.setCostOfRoom(roomCost);
+         
                  
                  Label outputLabel = new Label ("Review your Reservation");
                  outputLabel.setText("Is this information correct?" + "\n" + "\n"
@@ -586,12 +610,14 @@ public class HotelReservation extends Application {
                  + person.getPhoneNumber() +"\n" + "\n" + "Room Information:" +
                   "\n" + "\n" + checkIn1.getCheckInTime() + "\n" +
                  checkOut1.getCheckOutTime() + "\n" + roomAssignment.getNumGuests()
-                 + "\n" + payment.getCostOfRoom() + "\n" + roomAssignment.getType1() 
-                 +  ", " + "\n" + "\n" + "Payment Information:" + "\n" + "\n" +
-                 payment.getNameOnCard() + "\n" + payment.getCcNumber() + "\n" +
-                 payment.getSecurityNum() + "\n" + payment.getExpDate() + "\n" +
-                 "\n" + "If this information is not correct, please click the"
-                         + " button of the page you would like to go back to");
+                 + "\n" + roomAssignment.getType1() +  ", " + "\n" + "\n" + 
+                 "Payment Information:" + "\n" + "\n" + payment.getCostOfRoom()
+                 + "\n" + payment.getNameOnCard() + "\n" + 
+                 payment.getCcNumber() + "\n" + payment.getSecurityNum() + "\n" 
+                 + payment.getExpDate() + "\n" + "\n" + "If this information is "
+                 + "not correct, please click the button of the page you would "
+                 + "like to go back to" + "\n" + "\n" + "Confirmation Number: "
+                 );
                  
                  
                  
@@ -693,7 +719,7 @@ public class HotelReservation extends Application {
             filewriter.write("\n");
             filewriter.write("Room type: " + choiceBox.getValue());
             filewriter.write("\n");
-            filewriter.write("Total Cost: " + roomCost);
+            filewriter.write("Total Cost: $" + roomCost);
             filewriter.write("\n");
             filewriter.write("Name on Card: " + nameOnCardField.getText());
             filewriter.write("\n");
@@ -730,18 +756,26 @@ public class HotelReservation extends Application {
       
       String pass = "hotelreservation11";
       
-      String subject = "Java Email Demo";
+      String subject = "Your " + dp.getValue() + " Confirmation" ;
       
-      String messageText = "Dear " + prefTitleField.getText() + " "
-              + lNameField.getText() + ", " + "\n" + "\n" + "We have recieved your"
-              + " reservation." + "\n" + "\n" + "Please refer to the information below "
-              + "regarding your reservation details." + "\n" + "\n" + "Arrival: "
-              + dp.getValue() + "\n" + "Number of Guests: " + guestsField.getText()
-              + "\n" + "Room Types: " + choiceBox.getValue() + "\n" + "Departure: "
-              + dp2.getValue() + "\n" + "\n" + "If you have any questions regarding"
-              + " this reservation, please feel free to contact us. Telephone: English"
-              + " Support 1 800 123 4567, Spanish Support 1 800 321 7654, Email:"
-              + " HotelJavaFresno@gmail.com" + "\n" + "\n" + "Yours sincerely, "
+      int confirmNum = ConfirmationNumber(300000,5000000);
+      
+      String messageText = fNameField.getText() + " " + lNameField.getText() +
+              "\n" + "See you on " + dp.getValue() + "!" + "\n" + "\n" + "Your "
+              + "Upcoming Stay" + "\n" + "\n" + "Hotel Java Fresno" + "\n" +
+              "1500 Programming Ave Fresno CA 93727, US" + "\n" + "T: +1 800 123"
+              + " 4567" + "\n" + "\n" + "Confirmation #" + confirmNum + "\n" + 
+              "\n" + "Check-In Date: " + dp.getValue() + "\n" + "Check-Out Date"
+              + ": " + dp2.getValue() + "\n" + "\n" + "Your Room Information" + 
+              "\n" + "\n" + choiceBox.getValue() + "\n" + "Guests: " + 
+              guestsField.getText() + "\n" + "\n" + "Payment Information" + 
+              "\n" + "\n" + "Total for Stay: " + roomCost + "\n" + "\n" + "Rate"
+              + " Rules and Cancellation Policy" + "\n" + "* Please contact us"
+              + " should you need to cancel your reservation" + "\n" + "\n" +
+              "If you have any questions regarding this reservation, please"
+              + " feel free to contact us. Telephone: English Support 1 800 123"
+              + " 4567, Spanish Support 1 800 321 7654, Email: "
+              + "HotelJavaFresno@gmail.com" + "\n" + "\n" + "Yours sincerely, "
               + "Hotel Java Fresno";
       
       boolean sessionDebug = false;
@@ -866,49 +900,57 @@ public class HotelReservation extends Application {
            return 0;
        }
    
-     public int CostOfRoom(int num, Object room) throws FileNotFoundException
+     /*Method that reads cost of each room from a file and calculates the cost
+     * depending on the toom they select. Takes two parameters, num is for the
+     * number of days stayed and object room is for the room they select.
+     */
+     public double CostOfRoom(int num, Object room) throws FileNotFoundException
      {
            
-	   int cost = 0;
-	   int queen1 = 0;
-	   int  queen2 = 0;
-	   int king1 = 0;
-	   int executive = 0;
+	   double cost = 0.0;
+	   double queen1 = 0.0;
+	   double  queen2 = 0.0;
+	   double king1 = 0.0;
+	   double executive = 0.0;
+           
+           
+          
            
 	   try {
 	     Scanner scnr = new Scanner(new File("cost.txt"));
             
              while (scnr.hasNext())
 	     {
-                  queen1 = scnr.nextInt();
-		  queen2 = scnr.nextInt();
-		  king1 = scnr.nextInt();
-		  executive = scnr.nextInt();
-                           
+                  queen1 = scnr.nextDouble();
+		  queen2 = scnr.nextDouble();
+		  king1 = scnr.nextDouble();
+		  executive = scnr.nextDouble();
+                  
              }  
       
               if(room == "Guest Room, 1 Queen ($200)" )
 	      {
 		 cost = num * queen1;
-                 return cost;
+                 
+                 
 	      }
               
 	       else if(room == "Guest Room, 2 Queen ($250)" )
 	       {
 		  cost = num * queen2;
-                  return cost;
+                 
 	       }
                
 	       else if(room == "Guest Room, 1 King ($300)" )
 	       {
 		  cost = num * king1;
-                  return cost;
+                 
 	       } 
                
 	       else if(room == "Executive Suite ($480)")
 	       {
 		  cost = num * executive;
-                  return cost;
+               
 	       }
 	
                else
@@ -920,9 +962,15 @@ public class HotelReservation extends Application {
            catch(IOException e){
 		   
 	   }
-	   return cost;
+	   
+           return cost;
            
    }
+     
+    public int ConfirmationNumber(int min, int max)  {
+        int confirmNumber = (int) (Math.random() * ((max - min) + 1)) + min;
+        return confirmNumber;
+}
    
    
 
