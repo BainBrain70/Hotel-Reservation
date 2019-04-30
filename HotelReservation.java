@@ -616,8 +616,7 @@ public class HotelReservation extends Application {
                  payment.getCcNumber() + "\n" + payment.getSecurityNum() + "\n" 
                  + payment.getExpDate() + "\n" + "\n" + "If this information is "
                  + "not correct, please click the button of the page you would "
-                 + "like to go back to" + "\n" + "\n" + "Confirmation Number: "
-                 );
+                 + "like to go back to" + "\n" + "\n");
                  
                  
                  
@@ -765,13 +764,14 @@ public class HotelReservation extends Application {
               + "Upcoming Stay" + "\n" + "\n" + "Hotel Java Fresno" + "\n" +
               "1500 Programming Ave Fresno CA 93727, US" + "\n" + "T: +1 800 123"
               + " 4567" + "\n" + "\n" + "Confirmation #" + confirmNum + "\n" + 
-              "\n" + "Check-In Date: " + dp.getValue() + "\n" + "Check-Out Date"
-              + ": " + dp2.getValue() + "\n" + "\n" + "Your Room Information" + 
-              "\n" + "\n" + choiceBox.getValue() + "\n" + "Guests: " + 
-              guestsField.getText() + "\n" + "\n" + "Payment Information" + 
-              "\n" + "\n" + "Total for Stay: " + roomCost + "\n" + "\n" + "Rate"
-              + " Rules and Cancellation Policy" + "\n" + "* Please contact us"
-              + " should you need to cancel your reservation" + "\n" + "\n" +
+              "\n" +  "Check-In Date: " + dp.getValue() + "\n" + nightsStayed + 
+              " nights" + "\n" + "Check-Out Date: " + dp2.getValue() + "\n"
+              + "\n" + "Your Room Information" + "\n" + "\n" + 
+              choiceBox.getValue() + "\n" + "Guests: " + guestsField.getText() 
+              + "\n" + "\n" + "Payment Information" + "\n" + "\n" + "Total for"
+              + " Stay: " + roomCost + "\n" + "\n" + "Rate Rules and "
+              + "Cancellation Policy" + "\n" + "* Please contact us should you"
+              + " need to cancel your reservation" + "\n" + "\n" +
               "If you have any questions regarding this reservation, please"
               + " feel free to contact us. Telephone: English Support 1 800 123"
               + " 4567, Spanish Support 1 800 321 7654, Email: "
