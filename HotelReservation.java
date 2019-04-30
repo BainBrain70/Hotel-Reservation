@@ -123,7 +123,9 @@ public class HotelReservation extends Application {
       Button previousPage1 = new Button("Previous Page");
       Button previousPage2 = new Button("Previous Page");
       Button previousPage3 = new Button("Previous Page");
-      Button previousPage4 = new Button("Previous Page");
+      Button guestInfo = new Button("Guest Information");
+      Button roomInfo = new Button("Room Information");
+      Button paymentInfo = new Button("Payment Information");
       
       String pic = "file:hotelPic.jpg";
       
@@ -565,6 +567,7 @@ public class HotelReservation extends Application {
         
                  RoomAssignment roomAssignment = new RoomAssignment();
                  roomAssignment.setType1(room1);
+                 roomAssignment.setNumGuests(guests);
                 
                  
                  Payment payment = new Payment();
@@ -576,21 +579,24 @@ public class HotelReservation extends Application {
                  
                  Label outputLabel = new Label ("Review your Reservation");
                  outputLabel.setText("Is this information correct?" + "\n" + "\n"
-                 + person.getFirstName() + " " + person.getLastName() + "\n" +
-                 person.getEmail() + "\n" + person.getAddress() + " " + person.getCity() 
-                 + ", " + person.getState() + " " + person.getPostalCode() + "\n"
-                 + person.getPhoneNumber() + "\n" + checkIn1.getCheckInTime()
-                 + "\n" + checkOut1.getCheckOutTime() + "\n" + payment.getCostOfRoom()
-                 + "\n" + roomAssignment.getType1() + ", " 
-                 + "\n" + payment.getNameOnCard() + "\n" + payment.getCcNumber() + "\n" +
-                 payment.getSecurityNum() + "\n" + payment.getExpDate() + "\n"
-                 + "\n" + "If this information is not correct, please go back "
-                         + "and correct it.");
+                 + "Guest Information:" + "\n" + "\n" + person.getFirstName() + 
+                  " " + person.getLastName() + "\n" +  person.getEmail() + "\n"
+                  + person.getAddress() + " " + person.getCity() + ", " + 
+                  person.getState() + " " + person.getPostalCode() + "\n"
+                 + person.getPhoneNumber() +"\n" + "\n" + "Room Information:" +
+                  "\n" + "\n" + checkIn1.getCheckInTime() + "\n" +
+                 checkOut1.getCheckOutTime() + "\n" + roomAssignment.getNumGuests()
+                 + "\n" + payment.getCostOfRoom() + "\n" + roomAssignment.getType1() 
+                 +  ", " + "\n" + "\n" + "Payment Information:" + "\n" + "\n" +
+                 payment.getNameOnCard() + "\n" + payment.getCcNumber() + "\n" +
+                 payment.getSecurityNum() + "\n" + payment.getExpDate() + "\n" +
+                 "\n" + "If this information is not correct, please click the"
+                         + " button of the page you would like to go back to");
                  
                  
                  
-                    VBox vbox = new VBox(10, outputLabel, confirmButton,
-                    previousPage3);
+                    VBox vbox = new VBox(10, outputLabel, guestInfo, roomInfo, 
+                            paymentInfo, confirmButton);
                     vbox.setPadding(new Insets(10));
                     vbox.setAlignment(Pos.CENTER);
                
@@ -603,8 +609,10 @@ public class HotelReservation extends Application {
               catch (IOException e) {
                   System.out.println("Could not read from file");
               }
-                        
-           previousPage3.setOnAction( e -> window.setScene(scene4));
+            
+           guestInfo.setOnAction( e -> window.setScene(scene2));
+           roomInfo.setOnAction( e -> window.setScene(scene3));
+           paymentInfo.setOnAction( e -> window.setScene(scene4));
                         
  
           confirmButton.setOnAction(new EventHandler<ActionEvent>() {
