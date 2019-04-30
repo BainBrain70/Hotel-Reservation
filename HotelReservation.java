@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package hotelreservation;
-
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.stage.Modality;
@@ -13,7 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.TextField; 
 import javafx.geometry.Insets;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -40,138 +39,56 @@ import java.util.Scanner;
  * @author CodyWickman
  */
 public class HotelReservation extends Application {
-    /*Creates a label object for the guest's first name */
-    private Label firstName;
-	
-    /*Creates a label object for the guest's last name */
+     private Label firstName;
     private Label lastName;
-    
-    /*Creates a label object for the guest's preferred title */
     private Label prefTitle;
-    
-    /*Creates a label object for the guest's email address*/
     private Label email;
-    
-    /*Creates a label object for the country the guest lives in */
     private Label country;
-    
-    /*Creates a label object for the state the guest lives in */
     private Label state;
-    
-    /*Creates a label object for the guest's address */
     private Label address;
-    
-    /*Creates a label object for the city that the guest lives in */    
     private Label city;
-    
-    /*Creates a label object for the guest's zip code */
     private Label postalCode;
-    
-    /*Creates a label object for the guest's phone number */
     private Label phoneNum;
     
-    /*Creates a label object for the type of credit card */
     private Label cardType;
-    
-    /*Creates a label object for the guest's credit card number */
     private Label cardNum;
-    
-    /*Creates a label object for the guest's credit card expiration date */
     private Label expirationDate;
-    
-    /*Creates a label object for the guest's name on their credit card */
     private Label nameOnCard;
-    
-    /*Creates a label object for the guest's CCV number */
     private Label ccvNumber;
     
-    /*Creates a label object for the first room type */
     private Label roomType;
-    
-    /*Creates a label object for the 2nd room type */
     private Label room2Type;
-    
-    /*Creates a label object for the number of rooms */
     private Label numRooms;
-    
-    /*Creates a label object for the number of guests */
     private Label numGuests;
-    
-    /*Creates a label object for the guest's check in date */
     private Label inDate;
-    
-    /*Creates a label object for the guest's check out date */
     private Label outDate;
-    
-    /*Creates a label object for the terms and conditions */
     private Label termsCond;
    
-    /*Creates a text field object type of room */
     private TextField roomsField;
-    
-    /*Creates a text field object type of room */
     private TextField guestsField;
-    
-    /*Creates a text field object type of room */
     private TextField fNameField;
-    
-    /*Creates a text field object type of room */
     private TextField lNameField;
-    
-    /*Creates a text field object type of room */
     private TextField prefTitleField;
-    
-    /*Creates a text field object type of room */
     private TextField emailField;
-    
-    /*Creates a text field object type of room */
     private TextField countryField;
-    
-    /*Creates a text field object type of room */
     private TextField stateField;
-    
-    /*Creates a text field object type of room */
     private TextField addressField;
-    
-    /*Creates a text field object type of room */
     private TextField cityField;
-    
-    /*Creates a text field object type of room */
     private TextField postalField;
-    
-    /*Creates a text field object type of room */
     private TextField phoneField;
   
-    /*Creates a text field object type of room */
     private TextField cardField;
-    
-    /*Creates a text field object type of room */
     private TextField cardNumField;
-    
-    /*Creates a text field object type of room */
     private TextField expDateField;
-    
-    /*Creates a text field object type of room */
     private TextField nameOnCardField;
-    
-    /*Creates a text field object type of room */
     private TextField ccvNumberField;
     
-    /*Creates a text field object type of room */
+    
     private TextField inDateField;
-    
-    /*Creates a text field object type of room */
     private TextField outDateField;
-    
-    /*Creates a text field object type of room */
     LocalDate ld;
-    
-    /*Creates a text field object type of room */
     DatePicker dp;
-    
-    /*Creates a text field object type of room */
     DatePicker dp2;
-    
     ComboBox choiceBox;
     ComboBox cardSelect;
     ComboBox cardExpMonth;
@@ -196,13 +113,14 @@ public class HotelReservation extends Application {
       dp2 = new DatePicker();
         
       Button nextPageBtn = new Button("Next Page");
-      Button saveButton = new Button ("Save");
       Button paymentButton = new Button ("Payment");
       Button confirmationButton = new Button ("Review Reservation");
       Button showRoomButton = new Button("Show My Room");
-      Button reviewButton = new Button("Review my Reservation");
+      Button reviewButton = new Button("Review and Save my Reservation");
       Button confirmButton = new Button ("Confirm my Reservation");
-      Button validate = new Button("Validate info");
+      Button validateGuestInfo = new Button("Validate Before Proceeding");
+      Button validateRoomInfo = new Button("Validate Before Proceeding");
+      Button validatePayment = new Button("Validate Before Proceeding");
       Button bookButton = new Button("Book A Room");
       
       String pic = "file:hotelPic.jpg";
@@ -325,28 +243,51 @@ public class HotelReservation extends Application {
              gridPane.add(postalField,0,15);
              gridPane.add(phoneNum,0,16);
              gridPane.add(phoneField,0,17);
-             gridPane.add(nextPageBtn,0,18);
-             gridPane.add(validate, 0, 19);
+             gridPane.add(validateGuestInfo, 0, 18);
+             gridPane.add(nextPageBtn,0,19);
       
                  primaryStage.setTitle("Guest Information");
                  primaryStage.setScene(scene);
                  primaryStage.show();
                  
                  
-           validate.setOnAction(new EventHandler<ActionEvent>() {
+           validateGuestInfo.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
             public void handle(ActionEvent event) {
-            	              	 if (ContainsInteger(fNameField.getText()) || ContainsInteger(lNameField.getText()) ||
-            		ContainsInteger(prefTitleField.getText()) || ContainsInteger(countryField.getText()) ||
-            		ContainsInteger(cityField.getText()) || ContainsInteger(stateField.getText()))
-            	 {
-            		 Alert alert = new Alert(AlertType.ERROR,"First name cannot contain an integer");
+              if (ContainsInteger(fNameField.getText()) || ContainsInteger(lNameField.getText()))
+              {
+                  Alert alert = new Alert(AlertType.ERROR,"First or last name cannot contain an integer");
                          alert.showAndWait();
+              }
+              else if (ContainsInteger(prefTitleField.getText()))
+              {
+               Alert alert = new Alert(AlertType.ERROR,"Prefrred title cannot contain an integer");
+                         alert.showAndWait();     
             	 }
+               else if (ContainsInteger(countryField.getText()))
+              {
+               Alert alert = new Alert(AlertType.ERROR,"Country cannot contain an integer");
+                         alert.showAndWait();     
+            	 }
+                else if (ContainsInteger(cityField.getText()))
+              {
+               Alert alert = new Alert(AlertType.ERROR,"City cannot contain an integer");
+                         alert.showAndWait();     
+            	 }
+                 else if (ContainsInteger(stateField.getText()))
+              {
+               Alert alert = new Alert(AlertType.ERROR,"State cannot contain an integer");
+                         alert.showAndWait();     
+            	 }
+               
+              else {
+                  Alert alert = new Alert(AlertType.INFORMATION,"Information is correct."
+                          + " Please continue");
+                  alert.showAndWait();
+                          
+              }
              }
-           
-            
         });
            
            nextPageBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -365,9 +306,8 @@ public class HotelReservation extends Application {
                   inDate = new Label ("Check-In Date");
                   outDate = new Label ("Check-Out Date");
                   roomType = new Label ("Room Type");
-                  numRooms = new Label ("Number of Rooms");
                   numGuests = new Label ("Number of Guests");
-                  room2Type = new Label ("Room 2 Type (If Applicable)");
+                  
                  
     
                   guestsField = new TextField(); 
@@ -383,15 +323,13 @@ public class HotelReservation extends Application {
                   
                   choiceBox = new ComboBox<>();
                   
-                  choiceBox.getItems().addAll("Guest Room, 2 Queen", "Guest Room, 1 Queen",
-                          "Guest Room, 1 King", "Executive Suite");
+                  choiceBox.getItems().addAll("Guest Room, 2 Queen ($250)", 
+                          "Guest Room, 1 Queen ($200)",
+                          "Guest Room, 1 King ($300)", "Executive Suite ($480)");
                  
                   
                   
-                  cb2 = new ComboBox<>();
-                  
-                  cb2.getItems().addAll("Guest Room, 2 Queen", "Guest Room, 1 Queen",
-                          "Guest Room, 1 King", "Executive Suite");
+
                            
                   gridPane.setPadding(new Insets(30, 30, 30, 30)); // Padding around  grid
                   gridPane.setHgap(10);                            // Spacing between columns
@@ -403,36 +341,81 @@ public class HotelReservation extends Application {
                   gridPane.add(dp2,0,3);
                   gridPane.add(numGuests,0,4);
                   gridPane.add(guestsField,0,5);
-                  gridPane.add(numRooms,0,6);
-                  gridPane.add(roomsField,0,7);
-                  gridPane.add(roomType,0,8);
-                  gridPane.add(choiceBox,0,9);
-                  gridPane.add(room2Type,0,10);
-                  gridPane.add(cb2,0,11);
-                  gridPane.add(paymentButton,0,12);
-                  gridPane.add(showRoomButton, 0, 13);
-                  
-                  
-                 
-                  
-                 
+                  gridPane.add(roomType,0,7);
+                  gridPane.add(choiceBox,0,8);
+                  gridPane.add(validateRoomInfo,0,9);
+                  gridPane.add(showRoomButton, 0, 10);
+                  gridPane.add(paymentButton,0,11);
+         
                  primaryStage.setTitle("Room Information");
                  primaryStage.setScene(scene);
                  primaryStage.show();
                  
+       
+         validateRoomInfo.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+               
+              if (dp.getValue() == null || dp2.getValue() == null)
+              {
+                  Alert alert = new Alert(AlertType.ERROR,"Please enter a check"
+                          + "in / check out date");
+                         alert.showAndWait();
+              }
+              
+              else if ( nightsStayed == NumOfDays(dp.getValue(),dp2.getValue())) 
+              {
 
-
-            }
+              }
+              
+              else if (!ContainsInteger(guestsField.getText())) 
+              {
+                  Alert alert = new Alert(AlertType.ERROR,"Please enter a valid"
+                          + " number of guests");
+                  alert.showAndWait();
+              }
+              
+              else if (choiceBox.getValue() == null) 
+              {
+                  Alert alert = new Alert(AlertType.ERROR,"You must choose a room"
+                          + " type");
+                          
+                  alert.showAndWait();
+              }
+               
+              else {
+                  Alert alert = new Alert(AlertType.INFORMATION,"Information is correct."
+                          + " Please continue");
+                  alert.showAndWait();
+                          
+              }
+             }
+        });
+                 
+         showRoomButton.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+            	  ShowRoom();
+                  
+                  System.out.println(NumOfDays(dp.getValue(),dp2.getValue()));
+                  
+                  try {
+                      roomCost = CostOfRoom(nightsStayed, choiceBox.getValue());
+                  }
+                  
+                  catch (FileNotFoundException e1) {
+                      e1.printStackTrace();
+                  }
+                  
+                  System.out.println(roomCost);
+             }
+           
             
         });
-             
-       
-            }
-        });
-                
-
-
-        paymentButton.setOnAction(new EventHandler<ActionEvent>()  {
+            
+          paymentButton.setOnAction(new EventHandler<ActionEvent>()  {
             
             @Override
             public void handle(ActionEvent event) {
@@ -498,7 +481,7 @@ public class HotelReservation extends Application {
                 gridPane.add(cardExpYear,0,8);
             	gridPane.add(ccvNumber,0,9);
             	gridPane.add(ccvNumberField, 0, 10);
-                gridPane.add(saveButton,0,11);
+                gridPane.add(validatePayment,0,11);
             	gridPane.add(reviewButton, 0,12);
             	
             	 primaryStage.setTitle("Payment Information");
@@ -506,26 +489,64 @@ public class HotelReservation extends Application {
                  primaryStage.show();
                  
                  
-                 
-          saveButton.setOnAction(new EventHandler<ActionEvent>() {
+           validatePayment.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
             public void handle(ActionEvent event) {
+                
+              if (ContainsInteger(nameOnCardField.getText()))
+              {
+                  Alert alert = new Alert(AlertType.ERROR,"Please enter a valid"
+                          + " name. No integers allowed");
+                         alert.showAndWait();
+              }
+              
+              else if (cardSelect.getValue() == null) 
+              {
+                   Alert alert = new Alert(AlertType.ERROR,"Please select a card"
+                      + " type");
+                         alert.showAndWait(); 
+              }
+              
+              else if (!count(cardNumField.getText(), 15)) 
+              {
+                  
+                  Alert alert = new Alert(AlertType.ERROR,"Please enter a valid"
+                          + " card number with 16 digits");
+                  alert.showAndWait();
+              }
+           
+              else if (cardExpMonth.getValue() == null || cardExpYear.getValue()
+                      == null) 
+              {
+                  Alert alert = new Alert(AlertType.ERROR,"You must enter your "
+                          + " card expiration date inside of the choice box");
+                          
+                  alert.showAndWait();
+              }
+               
+              else {
+                  Alert alert = new Alert(AlertType.INFORMATION,"Information is correct."
+                          + " Please continue");
+                  alert.showAndWait();
+                          
+              }
+             }
+        });
+                 
+                 
+          
+           reviewButton.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                
              try {
                 SaveFile();
              }
              catch (IOException e) {
                  System.out.println("Could not save file");
              }
-             
-       
-            }
-        });
-          
-           reviewButton.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
                         try {
                 Scanner scnr = new Scanner(new File("guestInfo.txt"));
                 
@@ -542,10 +563,9 @@ public class HotelReservation extends Application {
                     String guestPhoneNum = scnr.nextLine(); 
                     String checkIn = scnr.nextLine();
                     String checkOut = scnr.nextLine();
-                    String guestNum = scnr.nextLine(); 
-                    String rooms = scnr.nextLine();
+                    String guests = scnr.nextLine();
                     String room1 = scnr.nextLine();
-                    String room2 = scnr.nextLine();
+                    String roomCost = scnr.nextLine();
                     String nameOnCCard = scnr.nextLine();
                     String CardType = scnr.nextLine();
                     String CCNumber = scnr.nextLine();
@@ -571,13 +591,14 @@ public class HotelReservation extends Application {
         
                  RoomAssignment roomAssignment = new RoomAssignment();
                  roomAssignment.setType1(room1);
-                 roomAssignment.setType2(room2);
+                
                  
                  Payment payment = new Payment();
                  payment.setNameOnCard(nameOnCCard);
                  payment.setCcNumber(CCNumber);
                  payment.setSecurityNum(ccvNum);
                  payment.setExpDate(cardExp);
+                 payment.setCostOfRoom(roomCost);
                  
                  Label outputLabel = new Label ("Review your Reservation");
                  outputLabel.setText("Is this information correct?" + "\n" + "\n"
@@ -585,8 +606,8 @@ public class HotelReservation extends Application {
                  person.getEmail() + "\n" + person.getAddress() + " " + person.getCity() 
                  + ", " + person.getState() + " " + person.getPostalCode() + "\n"
                  + person.getPhoneNumber() + "\n" + checkIn1.getCheckInTime()
-                 + "\n" + checkOut1.getCheckOutTime() + "\n" 
-                 + roomAssignment.getType1() + ", " + roomAssignment.getType2()
+                 + "\n" + checkOut1.getCheckOutTime() + "\n" + payment.getCostOfRoom()
+                 + "\n" + roomAssignment.getType1() + ", " 
                  + "\n" + payment.getNameOnCard() + "\n" + payment.getCcNumber() + "\n" +
                  payment.getSecurityNum() + "\n" + payment.getExpDate());
                  
@@ -633,54 +654,24 @@ public class HotelReservation extends Application {
                }
                
             }
-                 }); 
+          }); 
        
             }
             
         });
            
-
-         
-
             }
             
         });
-        
-        
-        showRoomButton.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
-            	  ShowRoom();
-                  nightsStayed = NumOfDays(dp.getValue(),dp2.getValue());
-                  System.out.println(NumOfDays(dp.getValue(),dp2.getValue()));
-                  
-                  try {
-                      roomCost = CostOfRoom(nightsStayed, choiceBox.getValue());
-                  }
-                  
-                  catch (FileNotFoundException e1) {
-                      e1.printStackTrace();
-                  }
-                  
-                  System.out.println(roomCost);
-             }
-           
-            
-        });
-        
-           confirmationButton.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event)  {
-                  
-
+                 
             }
-            
+    
         });
+   
+            }
+        });
+        
 
-        
-        
         primaryStage.setTitle("Welcome!");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -712,11 +703,9 @@ public class HotelReservation extends Application {
             filewriter.write("\n");
             filewriter.write("Guests: " + guestsField.getText());
             filewriter.write("\n");
-            filewriter.write("Rooms: " + roomsField.getText());
+            filewriter.write("Room type: " + choiceBox.getValue());
             filewriter.write("\n");
-            filewriter.write("Room 1 type: " + choiceBox.getValue());
-            filewriter.write("\n");
-            filewriter.write("Room 2 Type: " + cb2.getValue());
+            filewriter.write("Total Cost: " + roomCost);
             filewriter.write("\n");
             filewriter.write("Name on Card: " + nameOnCardField.getText());
             filewriter.write("\n");
@@ -760,8 +749,7 @@ public class HotelReservation extends Application {
               + " reservation." + "\n" + "\n" + "Please refer to the information below "
               + "regarding your reservation details." + "\n" + "\n" + "Arrival: "
               + dp.getValue() + "\n" + "Number of Guests: " + guestsField.getText()
-              + "\n" + "Number of Rooms: " + roomsField.getText() + "\n" + "Room Types: "
-              + choiceBox.getValue() + ", " + cb2.getValue() + "\n" + "Departure: "
+              + "\n" + "Room Types: " + choiceBox.getValue() + "\n" + "Departure: "
               + dp2.getValue() + "\n" + "\n" + "If you have any questions regarding"
               + " this reservation, please feel free to contact us. Telephone: English"
               + " Support 1 800 123 4567, Spanish Support 1 800 321 7654, Email:"
@@ -828,25 +816,25 @@ public class HotelReservation extends Application {
        String pic = null;
        String roomType = null;
 	   
-          if(choiceBox.getValue() == "Guest Room, 1 King")
+          if(choiceBox.getValue() == "Guest Room, 1 King ($300)")
 	   {
 		   pic = "file:download.jpg";
-		   roomType = "Guest Room, 1 King";
+		   roomType = "Guest Room, 1 King ($300)";
 	   }
-	   else if(choiceBox.getValue() == "Guest Room, 1 Queen")
+	   else if(choiceBox.getValue() == "Guest Room, 1 Queen ($200)")
 	   {
 		   pic = "file:download2.jpg";
-		   roomType = "Guest Room, 1 Queen";
+		   roomType = "Guest Room, 1 Queen ($200)";
 	   }
-	   else if(choiceBox.getValue() == "Guest Room, 2 Queen")
+	   else if(choiceBox.getValue() == "Guest Room, 2 Queen ($250)")
 	   {
 		   pic = "file:download3.jpg";
-		   roomType = "Guest Room, 2 Queen";
+		   roomType = "Guest Room, 2 Queen ($250)";
 	   }
-	   else if(choiceBox.getValue() == "Executive Suite")
+	   else if(choiceBox.getValue() == "Executive Suite ($480)")
 	   {
 		   pic = "file:download4.jpg";
-		   roomType = "Executive Suite";
+		   roomType = "Executive Suite ($480)";
 	   }
 	   else
 	   {
@@ -874,51 +862,93 @@ public class HotelReservation extends Application {
 	   day1 = d1.getDayOfYear();
 	   day2 = d2.getDayOfYear();
 	   numOfNights = day2 - day1;
-	   return numOfNights;
+           if (d1.getDayOfYear() < d2.getDayOfYear()) {
+           
+               return numOfNights;
+           }
+           else {
+               Alert alert = new Alert(AlertType.ERROR,"Check-In Date cannot be"
+                       + " after Check-Out Date");
+               alert.showAndWait();
+           }
+           return 0;
    }
    
    public int CostOfRoom(int num, Object room) throws FileNotFoundException
    {
+           
 	   int cost = 0;
 	   int queen1 = 0;
 	   int  queen2 = 0;
 	   int king1 = 0;
 	   int executive = 0;
+           
 	   try {
 		   Scanner scnr = new Scanner(new File("cost.txt"));
-		   while(scnr.hasNextInt())
+		   while (scnr.hasNext())
 		   {
-			   queen1 = scnr.nextInt();
-			   queen2 = scnr.nextInt();
-			   king1 = scnr.nextInt(); 
-			   executive = scnr.nextInt();
-		   }
-		   if(room == "Guest Room, 1 Queen" )
+			    queen1 = scnr.nextInt();
+			    queen2 = scnr.nextInt();
+			    king1 = scnr.nextInt();
+			    executive = scnr.nextInt();
+                           
+                   }  
+                   
+		   
+		   if(room == "Guest Room, 1 Queen ($200)" )
 		   {
 			   cost = num * queen1;
+                           return cost;
 		   }
-		   else if(room == "Guest Room, 2 Queen" )
+		   else if(room == "Guest Room, 2 Queen ($250)" )
 		   {
 			   cost = num * queen2;
+                           //return cost;
 		   }
-		   else if(room == "Guest Room, 1 King" )
+		   else if(room == "Guest Room, 1 King ($300)" )
 		   {
 			   cost = num * king1;
+                           //return cost;
 		   }
-		   else if(room == "Executive Suite")
+		   else if(room == "Executive Suite ($480)")
 		   {
 			   cost = num * executive;
+                           //return cost;
 		   }
 		   else
 		   {
 			   System.out.println("Could not calculate room cost");
 		   }
+                   
+                   
+                   
 		   
 	   }catch(IOException e){
 		   
 	   }
 	   return cost;
+           
    }
+   
+       public static boolean count(String cardNum, int pos) {
+           int temp = 0;
+        while (pos <= 0 ) {
+          
+            count(cardNum,pos - 1);
+            ++temp;
+            
+        }
+        System.out.print(temp);
+        if(temp == 16)
+        {
+            return true;
+        }
+        else 
+        {
+            return false;
+        }
+           
+    }
    
    
 
