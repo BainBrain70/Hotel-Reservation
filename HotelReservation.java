@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package hotelreservation;
+
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.stage.Modality;
@@ -102,12 +103,12 @@ public class HotelReservation extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-        
-      Scene scene = null;         // Scene contains all content
+         Stage window = primaryStage;
+      Scene scene1 = null;         // Scene contains all content
       GridPane gridPane = null;   // Positions components within scene
       
       gridPane = new GridPane();   // Create an empty pane
-      scene = new Scene(gridPane);
+      scene1 = new Scene(gridPane);
       
       dp = new DatePicker();
       dp2 = new DatePicker();
@@ -118,10 +119,11 @@ public class HotelReservation extends Application {
       Button showRoomButton = new Button("Show My Room");
       Button reviewButton = new Button("Review and Save my Reservation");
       Button confirmButton = new Button ("Confirm my Reservation");
-      Button validateGuestInfo = new Button("Validate Before Proceeding");
-      Button validateRoomInfo = new Button("Validate Before Proceeding");
-      Button validatePayment = new Button("Validate Before Proceeding");
       Button bookButton = new Button("Book A Room");
+      Button previousPage1 = new Button("Previous Page");
+      Button previousPage2 = new Button("Previous Page");
+      Button previousPage3 = new Button("Previous Page");
+      Button previousPage4 = new Button("Previous Page");
       
       String pic = "file:hotelPic.jpg";
       
@@ -131,7 +133,7 @@ public class HotelReservation extends Application {
       
       Label outputLabel = new Label("Welcome");
       
-      outputLabel.setText("Welcome to Hotel Java Fresno!");
+      outputLabel.setText("\n \n Welcome to Hotel Java Fresno!\n \n");
       
       ImageView imageView = new ImageView(image);
       
@@ -139,24 +141,18 @@ public class HotelReservation extends Application {
       
       vBox.setAlignment(Pos.CENTER);
       
-      scene = new Scene(vBox, 600,600);
-      
-      
-      
-     
-      
-        
+      scene1 = new Scene(vBox, 600,600);
+
       
         bookButton.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
             public void handle(ActionEvent event) {
                 
-                 Scene scene = null;         // Scene contains all content
                 GridPane gridPane = null;   // Positions components within scene
       
                  gridPane = new GridPane();   // Create an empty pane
-                 scene = new Scene(gridPane);
+                 Scene scene2 = new Scene(gridPane);
                  
                  firstName = new Label("First Name*");
                  lastName = new Label("Last Name*");
@@ -166,7 +162,7 @@ public class HotelReservation extends Application {
                  country = new Label ("Country / Reigon*");
                  city = new Label("City*");
                  state = new Label("State*");
-                postalCode = new Label ("Postal Code*");
+                 postalCode = new Label ("Postal Code*");
                  phoneNum = new Label("Phone Number*");
       
                 fNameField = new TextField(); 
@@ -219,89 +215,87 @@ public class HotelReservation extends Application {
                 phoneField.setEditable(true);
                 phoneField.setText("");
       
-            gridPane.setPadding(new Insets(30, 30, 30, 30)); // Padding around  grid
-            gridPane.setHgap(10);                            // Spacing between columns
-            gridPane.setVgap(10); 
+               gridPane.setPadding(new Insets(30, 30, 30, 30));
+               gridPane.setHgap(10);                           
+               gridPane.setVgap(10); 
       
-             gridPane.add(firstName, 0,0);
-             gridPane.add(fNameField, 0,1);
-             gridPane.add(lastName, 1, 0);
-             gridPane.add(lNameField,1,1);
-             gridPane.add(prefTitle,0,2);
-             gridPane.add(prefTitleField,0,3);
-             gridPane.add(email, 0,4);
-             gridPane.add(emailField, 0,5);
-             gridPane.add(address,0,6);
-             gridPane.add(addressField,0,7);
-             gridPane.add(country,0,8);
-             gridPane.add(countryField,0,9);  
-             gridPane.add(city,0,10);
-             gridPane.add(cityField,0,11);
-             gridPane.add(state,0,12);
-             gridPane.add(stateField,0,13);
-             gridPane.add(postalCode,0,14);
-             gridPane.add(postalField,0,15);
-             gridPane.add(phoneNum,0,16);
-             gridPane.add(phoneField,0,17);
-             gridPane.add(validateGuestInfo, 0, 18);
-             gridPane.add(nextPageBtn,0,19);
+               gridPane.add(firstName, 0,0);
+               gridPane.add(fNameField, 0,1);
+               gridPane.add(lastName, 1, 0);
+               gridPane.add(lNameField,1,1);
+               gridPane.add(prefTitle,0,2);
+               gridPane.add(prefTitleField,0,3);
+               gridPane.add(email, 0,4);
+               gridPane.add(emailField, 0,5);
+               gridPane.add(address,0,6);
+               gridPane.add(addressField,0,7);
+               gridPane.add(country,0,8);
+               gridPane.add(countryField,0,9);  
+               gridPane.add(city,0,10);
+               gridPane.add(cityField,0,11);
+               gridPane.add(state,0,12);
+               gridPane.add(stateField,0,13);
+               gridPane.add(postalCode,0,14);
+               gridPane.add(postalField,0,15);
+               gridPane.add(phoneNum,0,16);
+               gridPane.add(phoneField,0,17);
+               gridPane.add(nextPageBtn,0,18);
       
                  primaryStage.setTitle("Guest Information");
-                 primaryStage.setScene(scene);
+                 primaryStage.setScene(scene2);
                  primaryStage.show();
-                 
-                 
-           validateGuestInfo.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
-              if (ContainsInteger(fNameField.getText()) || ContainsInteger(lNameField.getText()))
-              {
-                  Alert alert = new Alert(AlertType.ERROR,"First or last name cannot contain an integer");
-                         alert.showAndWait();
-              }
-              else if (ContainsInteger(prefTitleField.getText()))
-              {
-               Alert alert = new Alert(AlertType.ERROR,"Prefrred title cannot contain an integer");
-                         alert.showAndWait();     
-            	 }
-               else if (ContainsInteger(countryField.getText()))
-              {
-               Alert alert = new Alert(AlertType.ERROR,"Country cannot contain an integer");
-                         alert.showAndWait();     
-            	 }
-                else if (ContainsInteger(cityField.getText()))
-              {
-               Alert alert = new Alert(AlertType.ERROR,"City cannot contain an integer");
-                         alert.showAndWait();     
-            	 }
-                 else if (ContainsInteger(stateField.getText()))
-              {
-               Alert alert = new Alert(AlertType.ERROR,"State cannot contain an integer");
-                         alert.showAndWait();     
-            	 }
-               
-              else {
-                  Alert alert = new Alert(AlertType.INFORMATION,"Information is correct."
-                          + " Please continue");
-                  alert.showAndWait();
-                          
-              }
-             }
-        });
+
            
            nextPageBtn.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
             public void handle(ActionEvent event) {
-                  
+                
+              if (ContainsInteger(fNameField.getText()) || 
+                      ContainsInteger(lNameField.getText()))
+              {
+                Alert alert = new Alert(AlertType.ERROR,"First or last name "
+                        + "cannot contain an integer");
+                         alert.showAndWait();
+              }
+              
+              else if (phoneField.getText().length() != 10) {
+                  Alert alert = new Alert(AlertType.ERROR,"Phone number must be"
+                          + " 10 digits");
+                  alert.showAndWait();
+              }
+              
+              else if (ContainsInteger(prefTitleField.getText()))
+              {
+               Alert alert = new Alert(AlertType.ERROR,"Prefrred title cannot "
+                       + "contain an integer");
+                         alert.showAndWait();     
+            	 }
+               else if (ContainsInteger(countryField.getText()))
+              {
+               Alert alert = new Alert(AlertType.ERROR,"Country cannot contain "
+                       + "an integer");
+                         alert.showAndWait();     
+            	 }
+                else if (ContainsInteger(cityField.getText()))
+              {
+               Alert alert = new Alert(AlertType.ERROR,"City cannot contain an"
+                       + " integer");
+                         alert.showAndWait();     
+            	 }
+                 else if (ContainsInteger(stateField.getText()))
+              {
+               Alert alert = new Alert(AlertType.ERROR,"State cannot contain an "
+                       + "integer");
+                         alert.showAndWait();     
+            	 }
 
-            	 
-            	  Scene scene = null;         // Scene contains all content
+               
+       
                   GridPane gridPane = null;   // Positios components within scene
       
                   gridPane = new GridPane();   // Create an empty pane
-                  scene = new Scene(gridPane);
+                  Scene scene3 = new Scene(gridPane);
                   
                   inDate = new Label ("Check-In Date");
                   outDate = new Label ("Check-Out Date");
@@ -328,11 +322,8 @@ public class HotelReservation extends Application {
                           "Guest Room, 1 King ($300)", "Executive Suite ($480)");
                  
                   
-                  
-
-                           
-                  gridPane.setPadding(new Insets(30, 30, 30, 30)); // Padding around  grid
-                  gridPane.setHgap(10);                            // Spacing between columns
+                  gridPane.setPadding(new Insets(30, 30, 30, 30)); 
+                  gridPane.setHgap(10);                            
                   gridPane.setVgap(10);
                   
                   gridPane.add(inDate,0,0);
@@ -343,56 +334,17 @@ public class HotelReservation extends Application {
                   gridPane.add(guestsField,0,5);
                   gridPane.add(roomType,0,7);
                   gridPane.add(choiceBox,0,8);
-                  gridPane.add(validateRoomInfo,0,9);
-                  gridPane.add(showRoomButton, 0, 10);
-                  gridPane.add(paymentButton,0,11);
+                  gridPane.add(showRoomButton, 0, 9);
+                  gridPane.add(paymentButton,0,10);
+                  gridPane.add(previousPage1,0,11);
          
                  primaryStage.setTitle("Room Information");
-                 primaryStage.setScene(scene);
+                 primaryStage.setScene(scene3);
                  primaryStage.show();
                  
-       
-         validateRoomInfo.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
-               
-              if (dp.getValue() == null || dp2.getValue() == null)
-              {
-                  Alert alert = new Alert(AlertType.ERROR,"Please enter a check"
-                          + "in / check out date");
-                         alert.showAndWait();
-              }
-              
-              else if ( nightsStayed == NumOfDays(dp.getValue(),dp2.getValue())) 
-              {
-
-              }
-              
-              else if (!ContainsInteger(guestsField.getText())) 
-              {
-                  Alert alert = new Alert(AlertType.ERROR,"Please enter a valid"
-                          + " number of guests");
-                  alert.showAndWait();
-              }
-              
-              else if (choiceBox.getValue() == null) 
-              {
-                  Alert alert = new Alert(AlertType.ERROR,"You must choose a room"
-                          + " type");
-                          
-                  alert.showAndWait();
-              }
-               
-              else {
-                  Alert alert = new Alert(AlertType.INFORMATION,"Information is correct."
-                          + " Please continue");
-                  alert.showAndWait();
-                          
-              }
-             }
-        });
-                 
+         previousPage1.setOnAction( e -> window.setScene(scene2));
+        
+         
          showRoomButton.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
@@ -420,17 +372,43 @@ public class HotelReservation extends Application {
             @Override
             public void handle(ActionEvent event) {
                 
-               
-            	Scene scene = null;
+               if (dp.getValue() == null || dp2.getValue() == null)
+               {
+                 Alert alert = new Alert(AlertType.ERROR,"Please enter a check"
+                          + "in / check out date");
+                         alert.showAndWait();
+              }
+              
+              else if ( nightsStayed == NumOfDays(dp.getValue(),dp2.getValue())) 
+              {
+
+              }
+              
+              else if (!ContainsInteger(guestsField.getText())) 
+              {
+                  Alert alert = new Alert(AlertType.ERROR,"Please enter a valid"
+                          + " number of guests");
+                  alert.showAndWait();
+              }
+              
+              else if (choiceBox.getValue() == null) 
+              {
+                  Alert alert = new Alert(AlertType.ERROR,"You must choose a room"
+                          + " type");
+                          
+                  alert.showAndWait();
+              }
+            	
             	GridPane gridPane = null;
             	
             	gridPane = new GridPane();
-            	scene = new Scene(gridPane);
+            	Scene scene4 = new Scene(gridPane);
             	
             	cardType = new Label("Card Type");
             	cardNum = new Label("Card Number");
             	expirationDate = new Label("Expiration Date");
-            	nameOnCard = new Label("Enter the name on the credit card exactly how it appears");
+            	nameOnCard = new Label("Enter the name on the credit card "
+                        + "exactly how it appears");
             	ccvNumber = new Label("CCV #");
             	
             	cardNumField = new TextField();
@@ -451,7 +429,8 @@ public class HotelReservation extends Application {
             	
             	cardSelect = new ComboBox<>();
             	
-            	cardSelect.getItems().addAll("Visa","Master Card","American Express");
+            	cardSelect.getItems().addAll("Visa","Master Card","American "
+                        + "Express");
                 
                 cardExpMonth = new ComboBox<>();
                 
@@ -466,8 +445,8 @@ public class HotelReservation extends Application {
                         "2023", "2024");
             	
             	
-            	gridPane.setPadding(new Insets(30, 30, 30, 30)); // Padding around  grid
-                gridPane.setHgap(10);                            // Spacing between columns
+            	gridPane.setPadding(new Insets(30, 30, 30, 30)); 
+                gridPane.setHgap(10);                            
                 gridPane.setVgap(10);
             	
                 gridPane.add(nameOnCard, 0, 0);
@@ -481,22 +460,25 @@ public class HotelReservation extends Application {
                 gridPane.add(cardExpYear,0,8);
             	gridPane.add(ccvNumber,0,9);
             	gridPane.add(ccvNumberField, 0, 10);
-                gridPane.add(validatePayment,0,11);
-            	gridPane.add(reviewButton, 0,12);
+            	gridPane.add(reviewButton, 0,11);
+                gridPane.add(previousPage2,0,12);
             	
             	 primaryStage.setTitle("Payment Information");
-                 primaryStage.setScene(scene);
+                 primaryStage.setScene(scene4);
                  primaryStage.show();
                  
+          previousPage2.setOnAction( e -> window.setScene(scene3));
                  
-           validatePayment.setOnAction(new EventHandler<ActionEvent>() {
+
+      
+           reviewButton.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
             public void handle(ActionEvent event) {
-                
+                             
               if (ContainsInteger(nameOnCardField.getText()))
               {
-                  Alert alert = new Alert(AlertType.ERROR,"Please enter a valid"
+                 Alert alert = new Alert(AlertType.ERROR,"Please enter a valid"
                           + " name. No integers allowed");
                          alert.showAndWait();
               }
@@ -508,13 +490,14 @@ public class HotelReservation extends Application {
                          alert.showAndWait(); 
               }
               
-              else if (!count(cardNumField.getText(), 15)) 
+              else if (cardNumField.getText().length() != 16) 
               {
                   
                   Alert alert = new Alert(AlertType.ERROR,"Please enter a valid"
                           + " card number with 16 digits");
                   alert.showAndWait();
               }
+              
            
               else if (cardExpMonth.getValue() == null || cardExpYear.getValue()
                       == null) 
@@ -524,33 +507,24 @@ public class HotelReservation extends Application {
                           
                   alert.showAndWait();
               }
-               
-              else {
-                  Alert alert = new Alert(AlertType.INFORMATION,"Information is correct."
-                          + " Please continue");
-                  alert.showAndWait();
-                          
+              
+              else if (!ContainsInteger(ccvNumberField.getText())) {
+                  Alert alert = new Alert(AlertType.ERROR,"Please enter a valid "
+                          + " CCV Number without letters");
               }
-             }
-        });
-                 
-                 
-          
-           reviewButton.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
+                
                 
              try {
                 SaveFile();
              }
+             
              catch (IOException e) {
                  System.out.println("Could not save file");
              }
-                        try {
+            
+             try {
                 Scanner scnr = new Scanner(new File("guestInfo.txt"));
                 
-
                 for (int i = 0; i < 1; i++) {
                 
                     String fName = scnr.nextLine(); 
@@ -609,17 +583,20 @@ public class HotelReservation extends Application {
                  + "\n" + checkOut1.getCheckOutTime() + "\n" + payment.getCostOfRoom()
                  + "\n" + roomAssignment.getType1() + ", " 
                  + "\n" + payment.getNameOnCard() + "\n" + payment.getCcNumber() + "\n" +
-                 payment.getSecurityNum() + "\n" + payment.getExpDate());
+                 payment.getSecurityNum() + "\n" + payment.getExpDate() + "\n"
+                 + "\n" + "If this information is not correct, please go back "
+                         + "and correct it.");
                  
                  
                  
-                    VBox vbox = new VBox(10, outputLabel, confirmButton);
+                    VBox vbox = new VBox(10, outputLabel, confirmButton,
+                    previousPage3);
                     vbox.setPadding(new Insets(10));
                     vbox.setAlignment(Pos.CENTER);
                
                      // Create a Scene and display it.
-                      Scene scene = new Scene(vbox);
-                        primaryStage.setScene(scene);
+                      Scene scene5 = new Scene(vbox);
+                        primaryStage.setScene(scene5);
                         primaryStage.show();
              }
                 }
@@ -627,11 +604,13 @@ public class HotelReservation extends Application {
                   System.out.println("Could not read from file");
               }
                         
-           
-            confirmButton.setOnAction(new EventHandler<ActionEvent>() {
+           previousPage3.setOnAction( e -> window.setScene(scene4));
+                        
+ 
+          confirmButton.setOnAction(new EventHandler<ActionEvent>() {
             
-           @Override
-            public void handle(ActionEvent event) {
+             @Override
+             public void handle(ActionEvent event) {
                try {
                    SendConfirmation();
                    Label outputLabel = new Label("Confirm your reservation");
@@ -654,6 +633,7 @@ public class HotelReservation extends Application {
                }
                
             }
+             
           }); 
        
             }
@@ -673,7 +653,7 @@ public class HotelReservation extends Application {
         
 
         primaryStage.setTitle("Welcome!");
-        primaryStage.setScene(scene);
+        primaryStage.setScene(scene1);
         primaryStage.show();
     }
     
@@ -745,7 +725,7 @@ public class HotelReservation extends Application {
       String subject = "Java Email Demo";
       
       String messageText = "Dear " + prefTitleField.getText() + " "
-              + " " + lNameField.getText() + ", " + "\n" + "\n" + "We have recieved your"
+              + lNameField.getText() + ", " + "\n" + "\n" + "We have recieved your"
               + " reservation." + "\n" + "\n" + "Please refer to the information below "
               + "regarding your reservation details." + "\n" + "\n" + "Arrival: "
               + dp.getValue() + "\n" + "Number of Guests: " + guestsField.getText()
@@ -793,66 +773,69 @@ public class HotelReservation extends Application {
         }
     }
     
-   public static boolean ContainsInteger(String s) {
-	      boolean containsInteger = false;
-	      char[] temp = s.toCharArray();
-	       	for(int i = 0; i < s.length(); i++)
-	       	{
-	       		if(Character.isDigit(temp[i]))
-	       			{
-	       			   return true;
-	       			}
-	       	}
+     public static boolean ContainsInteger(String s) {
+        
+       boolean containsInteger = false;   
+       char[] temp = s.toCharArray();
+	       	
+        for(int i = 0; i < s.length(); i++)
+	 {
+	     if(Character.isDigit(temp[i]))
+	     {
+	       	return true;
+	     }
+	  }
 	      return false;
 	   }
 	
-   public void ShowRoom()
-   {
+      public void ShowRoom()
+      {
 	  
-       Stage window = new Stage();
-       window.initModality(Modality.APPLICATION_MODAL);
-       Button closeButton = new Button("Close Window");
-       closeButton.setOnAction(e -> window.close());
-       String pic = null;
-       String roomType = null;
+        Stage window = new Stage();
+        window.initModality(Modality.APPLICATION_MODAL);
+        Button closeButton = new Button("Close Window");
+        closeButton.setOnAction(e -> window.close());
+        String pic = null;
+        String roomType = null;
 	   
           if(choiceBox.getValue() == "Guest Room, 1 King ($300)")
 	   {
 		   pic = "file:download.jpg";
 		   roomType = "Guest Room, 1 King ($300)";
 	   }
+          
 	   else if(choiceBox.getValue() == "Guest Room, 1 Queen ($200)")
 	   {
 		   pic = "file:download2.jpg";
 		   roomType = "Guest Room, 1 Queen ($200)";
 	   }
+           
 	   else if(choiceBox.getValue() == "Guest Room, 2 Queen ($250)")
 	   {
 		   pic = "file:download3.jpg";
 		   roomType = "Guest Room, 2 Queen ($250)";
 	   }
+           
 	   else if(choiceBox.getValue() == "Executive Suite ($480)")
 	   {
 		   pic = "file:download4.jpg";
 		   roomType = "Executive Suite ($480)";
 	   }
-	   else
-	   {
-		   
-	   }
-	Image image = new Image(pic);
+
+	   Image image = new Image(pic);
 	   
-    VBox vBox = new VBox();
+           VBox vBox = new VBox();
+     
+           ImageView imageView = new ImageView(image);
+     
+           vBox.getChildren().addAll(imageView, closeButton);
+           vBox.setAlignment(Pos.CENTER);
+           Scene scene = new Scene(vBox,265,220 );
+           window.setScene(scene);
+           window.showAndWait();
     
-    ImageView imageView = new ImageView(image);
-    
-    vBox.getChildren().addAll(imageView, closeButton);
-    vBox.setAlignment(Pos.CENTER);
-    Scene scene = new Scene(vBox,265,220 );
-    window.setScene(scene);
-    window.showAndWait();
-    
-   }
+      }
+      
    
      public int NumOfDays(LocalDate d1, LocalDate d2)
       {
@@ -866,16 +849,17 @@ public class HotelReservation extends Application {
            
                return numOfNights;
            }
+           
            else {
                Alert alert = new Alert(AlertType.ERROR,"Check-In Date cannot be"
                        + " after Check-Out Date");
                alert.showAndWait();
            }
            return 0;
-   }
+       }
    
-   public int CostOfRoom(int num, Object room) throws FileNotFoundException
-   {
+     public int CostOfRoom(int num, Object room) throws FileNotFoundException
+     {
            
 	   int cost = 0;
 	   int queen1 = 0;
@@ -884,71 +868,53 @@ public class HotelReservation extends Application {
 	   int executive = 0;
            
 	   try {
-		   Scanner scnr = new Scanner(new File("cost.txt"));
-		   while (scnr.hasNext())
-		   {
-			    queen1 = scnr.nextInt();
-			    queen2 = scnr.nextInt();
-			    king1 = scnr.nextInt();
-			    executive = scnr.nextInt();
+	     Scanner scnr = new Scanner(new File("cost.txt"));
+            
+             while (scnr.hasNext())
+	     {
+                  queen1 = scnr.nextInt();
+		  queen2 = scnr.nextInt();
+		  king1 = scnr.nextInt();
+		  executive = scnr.nextInt();
                            
-                   }  
-                   
-		   
-		   if(room == "Guest Room, 1 Queen ($200)" )
-		   {
-			   cost = num * queen1;
-                           return cost;
-		   }
-		   else if(room == "Guest Room, 2 Queen ($250)" )
-		   {
-			   cost = num * queen2;
-                           //return cost;
-		   }
-		   else if(room == "Guest Room, 1 King ($300)" )
-		   {
-			   cost = num * king1;
-                           //return cost;
-		   }
-		   else if(room == "Executive Suite ($480)")
-		   {
-			   cost = num * executive;
-                           //return cost;
-		   }
-		   else
-		   {
-			   System.out.println("Could not calculate room cost");
-		   }
-                   
-                   
-                   
-		   
-	   }catch(IOException e){
+             }  
+      
+              if(room == "Guest Room, 1 Queen ($200)" )
+	      {
+		 cost = num * queen1;
+                 return cost;
+	      }
+              
+	       else if(room == "Guest Room, 2 Queen ($250)" )
+	       {
+		  cost = num * queen2;
+                  return cost;
+	       }
+               
+	       else if(room == "Guest Room, 1 King ($300)" )
+	       {
+		  cost = num * king1;
+                  return cost;
+	       } 
+               
+	       else if(room == "Executive Suite ($480)")
+	       {
+		  cost = num * executive;
+                  return cost;
+	       }
+	
+               else
+	       {
+	          System.out.println("Could not calculate room cost");
+	        }
+      
+	   }
+           catch(IOException e){
 		   
 	   }
 	   return cost;
            
    }
-   
-       public static boolean count(String cardNum, int pos) {
-           int temp = 0;
-        while (pos <= 0 ) {
-          
-            count(cardNum,pos - 1);
-            ++temp;
-            
-        }
-        System.out.print(temp);
-        if(temp == 16)
-        {
-            return true;
-        }
-        else 
-        {
-            return false;
-        }
-           
-    }
    
    
 
