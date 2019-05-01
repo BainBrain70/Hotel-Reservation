@@ -1,7 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Hotel Reservation Program that allows a user to enter their information.
+ *
+ * 
  */
 package hotelreservation;
 
@@ -174,7 +174,7 @@ public class HotelReservation extends Application {
         //Event handler for when the book button is pressed
         bookButton.setOnAction(new EventHandler<ActionEvent>() {
             
-          /* Method is automatically called when the book button is pressed */
+          /** Method is automatically called when the book button is pressed. */
             @Override
             public void handle(ActionEvent event) {
                 
@@ -278,8 +278,9 @@ public class HotelReservation extends Application {
                gridPane.setHgap(10);   // Horizontal gap of 10                         
                gridPane.setVgap(10);   // Vertical gap of 1-
       
-               /* Add the created labels and text fields to specific columns and
-                rows of the gridpane
+               /**
+                Add the created labels and text fields to specific columns and
+                rows of the grid pane.
                */
                gridPane.add(firstName, 0,0);
                gridPane.add(fNameField, 0,1);
@@ -311,13 +312,16 @@ public class HotelReservation extends Application {
            // Event handler for the next page button
            nextPageBtn.setOnAction(new EventHandler<ActionEvent>() {
             
-       /* Method is automatically called when the next page button is pressed */
+            /**
+            Method is automatically called when the next page button is pressed.
+            */
             @Override
             public void handle(ActionEvent event) {
                 
-              /* If the first name or the last name contain an integer display
+              /**
+                 If the first name or the last name contain an integer display
                  an error alert box.
-                */
+              */
               if (ContainsInteger(fNameField.getText()) || 
                       ContainsInteger(lNameField.getText()))
               {
@@ -326,8 +330,9 @@ public class HotelReservation extends Application {
                          alert.showAndWait();
               }
               
-              /* If the postal code is not exactly 5 digits or contains a 
-                character display an error alert box
+              /**
+               If the postal code is not exactly 5 digits or contains a 
+                character display an error alert box.
               */
               else if(postalField.getText().length() != 5 || !ContainsInteger
                       (postalField.getText())) {
@@ -336,8 +341,9 @@ public class HotelReservation extends Application {
                   alert.showAndWait();
               }
               
-              /* If the phone number is not exactly 10 digits long or contains
-                a character display an error alert box
+              /**
+                If the phone number is not exactly 10 digits long or contains
+                a character display an error alert box.
               */
               else if (phoneField.getText().length() != 10 || !ContainsInteger
                       (phoneField.getText())) {
@@ -346,8 +352,9 @@ public class HotelReservation extends Application {
                   alert.showAndWait();
               }
               
-              /* If the preffered title contains an integer display an error 
-                 alert box
+              /**
+                 If the preferred title contains an integer display an error 
+                 alert box.
               */
               else if (ContainsInteger(prefTitleField.getText()))
               {
@@ -356,8 +363,9 @@ public class HotelReservation extends Application {
                          alert.showAndWait();     
             	 }
               
-              /* If the country field contains an integer display an error alert
-                 box
+              /**
+                 If the country field contains an integer display an error alert
+                 box.
               */
                else if (ContainsInteger(countryField.getText()))
               {
@@ -366,7 +374,9 @@ public class HotelReservation extends Application {
                          alert.showAndWait();     
             	 }
                
-              /* If the city contains an integer display an error alert box */
+              /**
+               If the city contains an integer display an error alert box.
+              */
               else if (ContainsInteger(cityField.getText()))
               {
                Alert alert = new Alert(AlertType.ERROR,"City cannot contain an"
@@ -374,7 +384,9 @@ public class HotelReservation extends Application {
                          alert.showAndWait();  
             	 }
              
-             /* If the state contains an integer display an error alert box */
+             /**
+               If the state contains an integer display an error alert box.
+              */
              else if (ContainsInteger(stateField.getText()))
               {
                Alert alert = new Alert(AlertType.ERROR,"State cannot contain an "
@@ -382,8 +394,7 @@ public class HotelReservation extends Application {
                          alert.showAndWait();     
             	 }
 
-               
-       
+    
                   GridPane gridPane = null;  // Positios components within scene
       
                   gridPane = new GridPane();  // Create an empty pane
@@ -421,8 +432,9 @@ public class HotelReservation extends Application {
                   gridPane.setHgap(10);   // Horizontal gap of 10                         
                   gridPane.setVgap(10);   // Vertical gap of 10
                   
-                  /* Add the labels and text fields to the columns and rows of 
-                   the grid pane
+                  /**
+                   Add the labels and text fields to the columns and rows of 
+                   the grid pane.
                   */
                   gridPane.add(inDate,0,0);
                   gridPane.add(dp,0,1);
@@ -436,22 +448,27 @@ public class HotelReservation extends Application {
                   gridPane.add(paymentButton,0,10);
                   gridPane.add(previousPage1,0,11);
          
-                 /* Set title of the stage, set the scene of the stage and 
-                    display it
+                 /**
+                    Set title of the stage, set the scene of the stage and 
+                    display it.
                   */
                  primaryStage.setTitle("Room Information");
                  primaryStage.setScene(scene3);
                  primaryStage.show();
                  
-         /* Event handler that occurs when the previousPage button is pressed,
-            taking you back to the second scene  */
+         /**
+            Event handler that occurs when the previousPage button is pressed,
+            taking you back to the second scene.
+         */
          previousPage1.setOnAction( e -> window.setScene(scene2));
         
          // Event handler for when the show room button is pressed
          showRoomButton.setOnAction(new EventHandler<ActionEvent>() {
             
-            /* Method is automatically called when the show room button is 
-             pressed */
+            /**
+             Method is automatically called when the show room button is 
+             pressed.
+             */
             @Override
             public void handle(ActionEvent event) {
             	  
@@ -459,30 +476,8 @@ public class HotelReservation extends Application {
                 ShowRoom();
                   
                   System.out.println(NumOfDays(dp.getValue(),dp2.getValue()));
-                  
-                  try {
 
-                      /* NumOfDays method is called, the date picker for the 
-                       check in date takes the first parameter and the date 
-                       picker for the check out date takes the second parameter
-                      */
-                      nightsStayed = NumOfDays(dp.getValue(),dp2.getValue());
-                      
-                    /* CostOfRoom Method is called, nights stayed takes first
-                        parameter while the room they select in the choice box 
-                        takes the second parameter.
-                      */
-                      roomCost = CostOfRoom(nightsStayed, choiceBox.getValue());
-                  }
-                  
-                  // If compiler cannot find the file, then catch the error
-                  catch (FileNotFoundException e1) {
-                      e1.printStackTrace();
-                  }
-                  
-                  System.out.println(roomCost);
-             }
-           
+            }
             
         });
             
@@ -517,6 +512,26 @@ public class HotelReservation extends Application {
                           
                   alert.showAndWait();
               }
+               
+               try {
+                      /**
+                       NumOfDays method is called, the date picker for the 
+                       check in date takes the first parameter and the date 
+                       picker for the check out date takes the second parameter.
+                      */
+                      nightsStayed = NumOfDays(dp.getValue(),dp2.getValue());
+                      
+                    /**
+                       CostOfRoom Method is called, nights stayed takes first
+                        parameter while the room they select in the choice box 
+                        takes the second parameter.
+                      */
+                      roomCost = CostOfRoom(nightsStayed, choiceBox.getValue());
+               }
+               catch (FileNotFoundException e) {
+                   e.printStackTrace();
+               }
+                  
             	
             	GridPane gridPane = null;
             	
@@ -594,14 +609,18 @@ public class HotelReservation extends Application {
                  primaryStage.setScene(scene4);
                  primaryStage.show();
                  
-            /* Event handler that occurs when the previousPage button is pressed,
-            taking you back to the third scene  */
+            /**
+             Event handler that occurs when the previousPage button is pressed,
+            taking you back to the third scene .
+            */
            previousPage2.setOnAction( e -> window.setScene(scene3));
                  
            // Event handler for the review Button
            reviewButton.setOnAction(new EventHandler<ActionEvent>() {
             
-          /* Method is automatically called when the review button is pressed */    
+          /** 
+           Method is automatically called when the review button is pressed.
+           */    
             @Override
             public void handle(ActionEvent event) {
                
@@ -621,8 +640,9 @@ public class HotelReservation extends Application {
                          alert.showAndWait(); 
               }
               
-              /* If the card number length is not exactly 16 or the card number
-                contains a character display an error alert
+              /**
+                 If the card number length is not exactly 16 or the card number
+                 contains a character display an error alert.
               */
               else if (cardNumField.getText().length() != 16 || !ContainsInteger
                       (cardNumField.getText())) 
@@ -633,8 +653,9 @@ public class HotelReservation extends Application {
                   alert.showAndWait();
               }
               
-              /* If the user does not select the card expiration month or year
-              display an error alert
+              /**
+               If the user does not select the card expiration month or year
+               display an error alert.
               */
               else if (cardExpMonth.getValue() == null || cardExpYear.getValue()
                       == null) 
@@ -645,13 +666,13 @@ public class HotelReservation extends Application {
                   alert.showAndWait();
               }
               
-              /* If the ccv number contains a character display an error alert*/
+              /** If the ccv number contains a character display an error alert.
+               */
               else if (!ContainsInteger(ccvNumberField.getText())) {
                   Alert alert = new Alert(AlertType.ERROR,"Please enter a valid "
                           + " CCV Number without letters");
               }
-                
-                
+                 
              try {
                  //Call the save file method to save the users reservation info
                 SaveFile();
@@ -703,7 +724,7 @@ public class HotelReservation extends Application {
                     String guests = scnr.nextLine();
                     
                     // Twelfth line is the room type
-                    String room1 = scnr.nextLine();
+                    String room = scnr.nextLine();
                     
                     // Thirteenth line is the cost of the room
                     String roomCost = scnr.nextLine();
@@ -723,11 +744,13 @@ public class HotelReservation extends Application {
                     // Last line is the ccv Num
                     String ccvNum = scnr.nextLine();
                     
-                 /* Create a person object that calls the person class and 
-                    sets the values fName, lName, guestEmail, guestAddress, 
-                    guestCity, guestState, postalCode, and guestPhoneNum to the 
-                    to the variables defined in the person class
-                    */
+                 /**
+                    Create a person object that calls the person class and 
+                    sets the values just read from the file (fName, lName, 
+                    guestEmail, guestAddress, guestCity, guestState, postalCode,
+                    and guestPhoneNum) to the variables defined in the person 
+                    class.
+                 */
                  Person person = new Person();
                  person.setFirstName(fName);
                  person.setLastName(lName);
@@ -738,32 +761,36 @@ public class HotelReservation extends Application {
                  person.setPostalCode(postalCode);
                  person.setPhoneNumber(guestPhoneNum);
                  
-                 /* Create a checkIn1 object that calls the CheckIn class and 
+                 /**
+                    Create a checkIn1 object that calls the CheckIn class and 
                     sets the values that were just read from the file (checkIn)
-                    to the variables defined in the CheckIn class
+                    to the variables defined in the CheckIn class.
                  */
                  CheckIn checkIn1 = new CheckIn();
-                 checkIn1.setCheckInTime(checkIn);
+                 checkIn1.setCheckInDate(checkIn);
         
-                 /* Create a checkOut1 object that calls the CheckOut class and
+                 /**
+                    Create a checkOut1 object that calls the CheckOut class and
                     sets the values read from the file (checkOut) to the 
-                    variable defined in CheckOut class
+                    variable defined in CheckOut class.
                  */
                  CheckOut checkOut1 = new CheckOut();
-                 checkOut1.setCheckOutTime(checkOut);
+                 checkOut1.setCheckOutDate(checkOut);
         
-                 /* Create a roomAssignment object that calls the RoomAssignment
+                 /**
+                    Create a roomAssignment object that calls the RoomAssignment
                     class and sets the values read from the file (room1, guests)
-                    to the variables defined in the RoomAssignment class
+                    to the variables defined in the RoomAssignment class.
                  */
                  RoomAssignment roomAssignment = new RoomAssignment();
-                 roomAssignment.setType1(room1);
+                 roomAssignment.setRoomType(room);
                  roomAssignment.setNumGuests(guests);
                 
-                 /* Create a payment object that calls the Payment class and
+                 /**
+                    Create a payment object that calls the Payment class and
                     sets the values read from the file (nameOnCCard, CCNumber,
                     ccvNum, cardExp, and roomCost) to the variables defined in
-                    the Payment class
+                    the Payment class.
                  */
                  Payment payment = new Payment();
                  payment.setNameOnCard(nameOnCCard);
@@ -775,11 +802,12 @@ public class HotelReservation extends Application {
                  // Create an outputLabel object
                  Label outputLabel = new Label ("Review your Reservation");
                  
-                 /* Set the outputLabel text that displays the information the
-                    user entered and asks them if it is correct. If so, they 
+                 /**
+                    Set the outputLabel text that displays the information the
+                    user entered and asks them if it is correct, If so, they 
                     will hit the confirm button or go back and fix the problems
                     they see by clicking the button of the page they wish to go
-                    back to
+                    back to.
                  */ 
                  outputLabel.setText("Is this information correct?" + "\n" + "\n"
                  + "Guest Information:" + "\n" + "\n" + person.getFirstName() + 
@@ -787,9 +815,9 @@ public class HotelReservation extends Application {
                   + person.getAddress() + " " + person.getCity() + ", " + 
                   person.getState() + " " + person.getPostalCode() + "\n"
                  + person.getPhoneNumber() +"\n" + "\n" + "Room Information:" +
-                  "\n" + "\n" + checkIn1.getCheckInTime() + "\n" +
-                 checkOut1.getCheckOutTime() + "\n" + roomAssignment.getNumGuests()
-                 + "\n" + roomAssignment.getType1() +  ", " + "\n" + "\n" + 
+                  "\n" + "\n" + checkIn1.getCheckInDate() + "\n" +
+                 checkOut1.getCheckOutDate() + "\n" + roomAssignment.getNumGuests()
+                 + "\n" + roomAssignment.getRoomType() +  ", " + "\n" + "\n" + 
                  "Payment Information:" + "\n" + "\n" + payment.getCostOfRoom()
                  + "\n" + payment.getNameOnCard() + "\n" + 
                  payment.getCcNumber() + "\n" + payment.getSecurityNum() + "\n" 
@@ -798,10 +826,11 @@ public class HotelReservation extends Application {
                  + "like to go back to" + "\n" + "\n");
                  
                  
-                    /* Create a VBox with spacing of 10 that includes the 
+                    /**
+                     Create a VBox with spacing of 10 that includes the 
                         outputLabel, guestInfo button, roomInfo button, 
-                        paymentInfo button, and the confirmButton
-                 */
+                        paymentInfo button, and the confirmButton.
+                    */
                     VBox vbox = new VBox(10, outputLabel, guestInfo, roomInfo, 
                             paymentInfo, confirmButton);
                     
@@ -822,33 +851,38 @@ public class HotelReservation extends Application {
              }
                 }
              
-             /* If the compiler cannot read the file catch the exception and 
-                display a message
+             /**
+               If the compiler cannot read the file catch the exception and 
+                display a message.
              */
               catch (IOException e) {
                   System.out.println("Could not read from file");
               }
            
-           /* Event handler that takes user back to scene 2 (Guest Info) when 
-             the guestInfo button is pressed
+           /**
+             Event handler that takes user back to scene 2 (Guest Info) when 
+             the guestInfo button is pressed.
              */
            guestInfo.setOnAction( e -> window.setScene(scene2));
            
-           /* Event handler that takes user back to scene 3 (Room Info) when 
-             the roomInfo button is pressed
+           /**
+             Event handler that takes user back to scene 3 (Room Info) when 
+             the roomInfo button is pressed.
              */
            roomInfo.setOnAction( e -> window.setScene(scene3));
            
-          /* Event handler that takes user back to scene 4 (Payment Info) when 
-             the paymentInfo button is pressed
+          /**
+             Event handler that takes user back to scene 4 (Payment Info) when 
+             the paymentInfo button is pressed.
              */
            paymentInfo.setOnAction( e -> window.setScene(scene4));
                         
            // Event handler for the confirmButton
           confirmButton.setOnAction(new EventHandler<ActionEvent>() {
             
-             /* Method is automatically called when the user presses the 
-              confirmButton
+             /**
+              Method is automatically called when the user presses the 
+              confirmButton.
               */
              @Override
              public void handle(ActionEvent event) {
@@ -860,8 +894,9 @@ public class HotelReservation extends Application {
                    // Create new label
                    Label outputLabel = new Label("Confirm your reservation");
                    
-                   /* Set the text of the label saying an email has been sent to
-                   their email
+                   /**
+                   Set the text of the label saying an email has been sent to
+                   their email.
                    */  
                    outputLabel.setText("An email has been sent to you regarding "
                            + "your reservation.");
@@ -914,8 +949,9 @@ public class HotelReservation extends Application {
     
     
 
-    /* Method that creates a new text file and save the users reservation info
-      to that file which throws an IOException
+    /**
+     Method that creates a new text file and save the users reservation info
+      to that file which throws an IOException.
     */ 
     private void SaveFile () throws IOException {
         try {
@@ -965,9 +1001,10 @@ public class HotelReservation extends Application {
     }
     
     
-   /* Method that sends a confirmation email to the user regarding their 
+   /**
+    Method that sends a confirmation email to the user regarding their 
     reservation. 
-     * Got help with this code from https://www.youtube.com/watch?v=UMfjndwGwnM
+    * Got help with this code from https://www.youtube.com/watch?v=UMfjndwGwnM
     */ 
    private void SendConfirmation () throws MessagingException {
       try {
@@ -987,8 +1024,10 @@ public class HotelReservation extends Application {
       // Create the subject of the email
       String subject = "Your " + dp.getValue() + " Confirmation" ;
       
-      /* Call the ConfirmationNumber method to get a random number 
-       between 300000 and 5000000 and assign it to confirmNum */
+      /**
+       Call the ConfirmationNumber method to get a random number 
+       between 300000 and 5000000 and assign it to confirmNum.
+       */
       int confirmNum = ConfirmationNumber(300000,5000000);
       
       //Set the message text 
@@ -1133,9 +1172,15 @@ public class HotelReservation extends Application {
            return 0;
        }
    
-     /*Method that reads cost of each room from a file and calculates the cost
-     * depending on the toom they select. Takes two parameters, num is for the
-     * number of days stayed and object room is for the room they select.
+     /**
+       Method that reads cost of each room from a file and calculates the cost
+       depending on the toom they select. 
+       Takes two parameters, num is for the number of days stayed and object 
+       room is for the room they select.
+     * @param num for the number of days the guest will be staying
+     * @param room for the type of room the guest picks
+     * @return the value in the cost field
+     * @throws java.io.FileNotFoundException
      */
      public double CostOfRoom(int num, Object room) throws FileNotFoundException
      {
@@ -1200,8 +1245,12 @@ public class HotelReservation extends Application {
            
    }
      
-    /* Method that takes two parameters and generates a random number between 2 
-      integers that will be used for the users confirmation #
+    /**
+      Method that takes two parameters and generates a random number between 2 
+      integers that will be used for the guests confirmation #.
+     * @param min the lowest number 
+     * @param max the highest number
+     * @return the value in the confirmNumber field
      */
     public int ConfirmationNumber(int min, int max)  {
         
@@ -1209,9 +1258,8 @@ public class HotelReservation extends Application {
         int confirmNumber = (int) (Math.random() * ((max - min) + 1)) + min;
         
         // Return the randomly generated number
-        return confirmNumber;
-        
-}
+        return confirmNumber; 
+     }
    
    
 
