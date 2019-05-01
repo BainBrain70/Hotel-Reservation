@@ -326,7 +326,8 @@ public class HotelReservation extends Application {
                       ContainsInteger(lNameField.getText()))
               {
                 Alert alert = new Alert(AlertType.ERROR,"First or last name "
-                        + "cannot contain an integer");
+                        + "cannot contain an integer. Please go back and fix it"
+                        + " by clicking the 'Previous Page' Button");
                          alert.showAndWait();
               }
               
@@ -337,7 +338,9 @@ public class HotelReservation extends Application {
               else if(postalField.getText().length() != 5 || !ContainsInteger
                       (postalField.getText())) {
                    Alert alert = new Alert(AlertType.ERROR,"Postal Code must "
-                           + "only be 5 digits and contain no Characters");
+                           + "only be 5 digits and contain no Characters. "
+                           + "Please go back and fix it by clicking the "
+                           + "'Previous Page' Button");
                   alert.showAndWait();
               }
               
@@ -348,7 +351,9 @@ public class HotelReservation extends Application {
               else if (phoneField.getText().length() != 10 || !ContainsInteger
                       (phoneField.getText())) {
                   Alert alert = new Alert(AlertType.ERROR,"Phone number must be"
-                          + " 10 digits and have no Characters");
+                          + " 10 digits and have no Characters. Please go "
+                          + "back and fix it by clicking the 'Previous Page' "
+                          + "Button");
                   alert.showAndWait();
               }
               
@@ -359,7 +364,8 @@ public class HotelReservation extends Application {
               else if (ContainsInteger(prefTitleField.getText()))
               {
                Alert alert = new Alert(AlertType.ERROR,"Prefrred title cannot "
-                       + "contain an integer");
+                       + "contain an integer. Please go back and fix it by "
+                       + "clicking the 'Previous Page' Button");
                          alert.showAndWait();     
             	 }
               
@@ -370,7 +376,8 @@ public class HotelReservation extends Application {
                else if (ContainsInteger(countryField.getText()))
               {
                Alert alert = new Alert(AlertType.ERROR,"Country cannot contain "
-                       + "an integer");
+                       + "an integer. Please go back and fix it by clicking "
+                       + "the 'Previous Page' button");
                          alert.showAndWait();     
             	 }
                
@@ -380,7 +387,8 @@ public class HotelReservation extends Application {
               else if (ContainsInteger(cityField.getText()))
               {
                Alert alert = new Alert(AlertType.ERROR,"City cannot contain an"
-                       + " integer");
+                       + " integer. Please go back and fix it by clicking "
+                       + "the 'Previous Page' button");
                          alert.showAndWait();  
             	 }
              
@@ -390,7 +398,8 @@ public class HotelReservation extends Application {
              else if (ContainsInteger(stateField.getText()))
               {
                Alert alert = new Alert(AlertType.ERROR,"State cannot contain an "
-                       + "integer");
+                       + "integer. Please go back and fix it by clicking "
+                       + "the 'Previous Page' button");
                          alert.showAndWait();     
             	 }
 
@@ -489,26 +498,29 @@ public class HotelReservation extends Application {
                if (dp.getValue() == null || dp2.getValue() == null)
                {
                  Alert alert = new Alert(AlertType.ERROR,"Please enter a check"
-                          + "in / check out date");
+                          + "in / check out date. Please go back and fix it by "
+                         + "clicking the 'Previous Page' button");
                          alert.showAndWait();
               }
               
               else if ( nightsStayed == NumOfDays(dp.getValue(),dp2.getValue())) 
               {
-
+                    
               }
               
               else if (!ContainsInteger(guestsField.getText())) 
               {
                   Alert alert = new Alert(AlertType.ERROR,"Please enter a valid"
-                          + " number of guests");
+                          + " number of guests. Please go back and fix it by "
+                          + "clicking the 'Previous Page' button");
                   alert.showAndWait();
               }
               
               else if (choiceBox.getValue() == null) 
               {
                   Alert alert = new Alert(AlertType.ERROR,"You must choose a room"
-                          + " type");
+                          + " type. Please go back and fix it by clicking "
+                       + "the 'Previous Page' button");
                           
                   alert.showAndWait();
               }
@@ -628,7 +640,8 @@ public class HotelReservation extends Application {
               if (ContainsInteger(nameOnCardField.getText()))
               {
                  Alert alert = new Alert(AlertType.ERROR,"Please enter a valid"
-                          + " name. No integers allowed");
+                          + " name. No integers allowed. Please go back and fix"
+                         + " it by clicking the 'Payment Info' button");
                          alert.showAndWait();
               }
               
@@ -636,7 +649,8 @@ public class HotelReservation extends Application {
               else if (cardSelect.getValue() == null) 
               {
                    Alert alert = new Alert(AlertType.ERROR,"Please select a card"
-                      + " type");
+                      + " type. Please go back and fix it by clicking "
+                       + "the 'Payment Info' button");
                          alert.showAndWait(); 
               }
               
@@ -649,7 +663,9 @@ public class HotelReservation extends Application {
               {
                   
                   Alert alert = new Alert(AlertType.ERROR,"Please enter a valid"
-                          + " card number with 16 digits and no Characters");
+                          + " card number with 16 digits and no Characters. "
+                          + "Please go back and fix it by clicking the "
+                          + "'Payment Info' button");
                   alert.showAndWait();
               }
               
@@ -661,7 +677,9 @@ public class HotelReservation extends Application {
                       == null) 
               {
                   Alert alert = new Alert(AlertType.ERROR,"You must enter your "
-                          + " card expiration date inside of the choice box");
+                          + " card expiration date inside of the choice box."
+                          + "Please go back and fix it by clicking "
+                       + "the 'Payment Info' button");
                           
                   alert.showAndWait();
               }
@@ -670,7 +688,9 @@ public class HotelReservation extends Application {
                */
               else if (!ContainsInteger(ccvNumberField.getText())) {
                   Alert alert = new Alert(AlertType.ERROR,"Please enter a valid "
-                          + " CCV Number without letters");
+                          + " CCV Number without letters. Please go back and "
+                          + "fix it by clicking the 'Payment Info' button");
+                  alert.showAndWait();
               }
                  
              try {
@@ -815,7 +835,8 @@ public class HotelReservation extends Application {
                   + person.getAddress() + " " + person.getCity() + ", " + 
                   person.getState() + " " + person.getPostalCode() + "\n"
                  + person.getPhoneNumber() +"\n" + "\n" + "Room Information:" +
-                  "\n" + "\n" + checkIn1.getCheckInDate() + "\n" +
+                  "\n" + "\n" + checkIn1.getCheckInDate() + "\n" + "Total "
+                  + "Nights: " + nightsStayed + "\n" + 
                  checkOut1.getCheckOutDate() + "\n" + roomAssignment.getNumGuests()
                  + "\n" + roomAssignment.getRoomType() +  ", " + "\n" + "\n" + 
                  "Payment Information:" + "\n" + "\n" + payment.getCostOfRoom()
@@ -1166,7 +1187,7 @@ public class HotelReservation extends Application {
            
            else {
                Alert alert = new Alert(AlertType.ERROR,"Check-In Date cannot be"
-                       + " after Check-Out Date");
+                       + " after Check-Out Date. Please go back and fix it");
                alert.showAndWait();
            }
            return 0;
