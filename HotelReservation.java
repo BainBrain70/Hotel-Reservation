@@ -181,73 +181,106 @@ public class HotelReservation extends Application {
                 GridPane gridPane = null;   // Positions components within scene
       
                  gridPane = new GridPane();   // Create an empty pane
-                 Scene scene2 = new Scene(gridPane);
+                 Scene scene2 = new Scene(gridPane); //Create scene2 with gridpane
                  
+                 // Create the first name label and name it
                  firstName = new Label("First Name*");
+                 
+                 // Last name label 
                  lastName = new Label("Last Name*");
+                 
+                 // Guest Preferred title label
                  prefTitle = new Label("Preferred Title");
+                 
+                 // Guests email label
                  email = new Label ("Email Address*");
+                 
+                 // Guests address label
                  address = new Label ("Address*");
+                 
+                 // Guests country label
                  country = new Label ("Country / Reigon*");
+                 
+                 // Guests city label
                  city = new Label("City*");
+                 
+                 // Guests state label
                  state = new Label("State*");
+                 
+                 // Postal code label
                  postalCode = new Label ("Postal Code*");
+                 
+                 // Phone num label
                  phoneNum = new Label("Phone Number*");
       
+                // First name text field for the guest
                 fNameField = new TextField(); 
                 fNameField.setPrefColumnCount(15);
-                fNameField.setEditable(true);
+                fNameField.setEditable(true);  // Allow them to enter their fName
                 fNameField.setText("");
       
+                // Last name text field for the guest
                 lNameField = new TextField(); 
                 lNameField.setPrefColumnCount(15);
-                lNameField.setEditable(true);
+                lNameField.setEditable(true);  // Allow them to enter their lName
                 lNameField.setText("");
       
+                // Preferred title text field for the guest
                 prefTitleField = new TextField(); 
                 prefTitleField.setPrefColumnCount(15);
-                prefTitleField.setEditable(true);
+                prefTitleField.setEditable(true); // Let user enter their pref title
                 prefTitleField.setText("");
       
+                // Email text field for the guest
                 emailField = new TextField(); 
                 emailField.setPrefColumnCount(15);
-                emailField.setEditable(true);
+                emailField.setEditable(true); // Let them enter their email
                 emailField.setText("");
       
+                // Address text field for the guest
                 addressField = new TextField(); 
                 addressField.setPrefColumnCount(15);
-                addressField.setEditable(true);
+                addressField.setEditable(true); // Let them enter their address
                 addressField.setText("");
       
+                // Country text field for the guest
                 countryField = new TextField(); 
                 countryField.setPrefColumnCount(15);
-                countryField.setEditable(true);
+                countryField.setEditable(true); // Let them enter their country
                 countryField.setText("");
       
+                // State text field for the guest
                 stateField = new TextField(); 
                 stateField.setPrefColumnCount(15);
-                stateField.setEditable(true);
+                stateField.setEditable(true); // Let them enter their state
                 stateField.setText("");
       
+                // City text field for the guest
                 cityField = new TextField(); 
                 cityField.setPrefColumnCount(15);
-                cityField.setEditable(true);
+                cityField.setEditable(true); // Let them enter their city
                 cityField.setText("");
       
+                // Posta code text field for the guest
                 postalField = new TextField(); 
                 postalField.setPrefColumnCount(15);
-                postalField.setEditable(true);
+                postalField.setEditable(true); // Let them enter their postal code
                 postalField.setText("");
       
+                // Phone number field for the guest
                 phoneField = new TextField(); 
                 phoneField.setPrefColumnCount(15);
-                phoneField.setEditable(true);
+                phoneField.setEditable(true); // Let them enter their phone num
                 phoneField.setText("");
       
+                // Set the padding to 30 around the grid pane
                gridPane.setPadding(new Insets(30, 30, 30, 30));
-               gridPane.setHgap(10);                           
-               gridPane.setVgap(10); 
+               gridPane.setHgap(10);   // Horizontal gap of 10                         
+               gridPane.setVgap(10);   // Vertical gap of 1-
       
+               /* Add the created labels and text fields to specific columns and
+                rows of the gridpane
+               */
                gridPane.add(firstName, 0,0);
                gridPane.add(fNameField, 0,1);
                gridPane.add(lastName, 1, 0);
@@ -270,6 +303,7 @@ public class HotelReservation extends Application {
                gridPane.add(phoneField,0,17);
                gridPane.add(nextPageBtn,0,18);
       
+                 // Set the title and the scene of the stage and then show it
                  primaryStage.setTitle("Guest Information");
                  primaryStage.setScene(scene2);
                  primaryStage.show();
@@ -281,6 +315,9 @@ public class HotelReservation extends Application {
             @Override
             public void handle(ActionEvent event) {
                 
+              /* If the first name or the last name contain an integer display
+                 an error alert box.
+                */
               if (ContainsInteger(fNameField.getText()) || 
                       ContainsInteger(lNameField.getText()))
               {
@@ -289,6 +326,9 @@ public class HotelReservation extends Application {
                          alert.showAndWait();
               }
               
+              /* If the postal code is not exactly 5 digits or contains a 
+                character display an error alert box
+              */
               else if(postalField.getText().length() != 5 || !ContainsInteger
                       (postalField.getText())) {
                    Alert alert = new Alert(AlertType.ERROR,"Postal Code must "
@@ -296,6 +336,9 @@ public class HotelReservation extends Application {
                   alert.showAndWait();
               }
               
+              /* If the phone number is not exactly 10 digits long or contains
+                a character display an error alert box
+              */
               else if (phoneField.getText().length() != 10 || !ContainsInteger
                       (phoneField.getText())) {
                   Alert alert = new Alert(AlertType.ERROR,"Phone number must be"
@@ -303,25 +346,36 @@ public class HotelReservation extends Application {
                   alert.showAndWait();
               }
               
+              /* If the preffered title contains an integer display an error 
+                 alert box
+              */
               else if (ContainsInteger(prefTitleField.getText()))
               {
                Alert alert = new Alert(AlertType.ERROR,"Prefrred title cannot "
                        + "contain an integer");
                          alert.showAndWait();     
             	 }
+              
+              /* If the country field contains an integer display an error alert
+                 box
+              */
                else if (ContainsInteger(countryField.getText()))
               {
                Alert alert = new Alert(AlertType.ERROR,"Country cannot contain "
                        + "an integer");
                          alert.showAndWait();     
             	 }
-                else if (ContainsInteger(cityField.getText()))
+               
+              /* If the city contains an integer display an error alert box */
+              else if (ContainsInteger(cityField.getText()))
               {
                Alert alert = new Alert(AlertType.ERROR,"City cannot contain an"
                        + " integer");
                          alert.showAndWait();  
             	 }
-                 else if (ContainsInteger(stateField.getText()))
+             
+             /* If the state contains an integer display an error alert box */
+             else if (ContainsInteger(stateField.getText()))
               {
                Alert alert = new Alert(AlertType.ERROR,"State cannot contain an "
                        + "integer");
@@ -330,40 +384,46 @@ public class HotelReservation extends Application {
 
                
        
-                  GridPane gridPane = null;   // Positios components within scene
+                  GridPane gridPane = null;  // Positios components within scene
       
-                  gridPane = new GridPane();   // Create an empty pane
-                  Scene scene3 = new Scene(gridPane);
+                  gridPane = new GridPane();  // Create an empty pane
+                  Scene scene3 = new Scene(gridPane); // Set the scene with grid pane
                   
+                  // Label for the check in date
                   inDate = new Label ("Check-In Date");
+                  
+                  // Label for the check out date
                   outDate = new Label ("Check-Out Date");
+                  
+                  // Label for the room type
                   roomType = new Label ("Room Type");
+                  
+                  // Label for the number of guests
                   numGuests = new Label ("Number of Guests");
                   
-                 
-    
+                  // Text field for the number of guests
                   guestsField = new TextField(); 
                   guestsField.setPrefColumnCount(15);
-                  guestsField.setEditable(true);
+                  guestsField.setEditable(true); // Let user enter number of guests
                   guestsField.setText("");
-                  
-                  
-                  roomsField = new TextField(); 
-                  roomsField.setPrefColumnCount(15);
-                  roomsField.setEditable(true);
-                  roomsField.setText("");
-                  
+
+                  // Create a new combo box for selecting a room
                   choiceBox = new ComboBox<>();
                   
+                  // Add the types of rooms to the combo box
                   choiceBox.getItems().addAll("Guest Room, 2 Queen ($250)", 
                           "Guest Room, 1 Queen ($200)",
                           "Guest Room, 1 King ($300)", "Executive Suite ($480)");
                  
                   
+                  // Set padding around the grid pane
                   gridPane.setPadding(new Insets(30, 30, 30, 30)); 
-                  gridPane.setHgap(10);                            
-                  gridPane.setVgap(10);
+                  gridPane.setHgap(10);   // Horizontal gap of 10                         
+                  gridPane.setVgap(10);   // Vertical gap of 10
                   
+                  /* Add the labels and text fields to the columns and rows of 
+                   the grid pane
+                  */
                   gridPane.add(inDate,0,0);
                   gridPane.add(dp,0,1);
                   gridPane.add(outDate,0,2);
@@ -376,6 +436,9 @@ public class HotelReservation extends Application {
                   gridPane.add(paymentButton,0,10);
                   gridPane.add(previousPage1,0,11);
          
+                 /* Set title of the stage, set the scene of the stage and 
+                    display it
+                  */
                  primaryStage.setTitle("Room Information");
                  primaryStage.setScene(scene3);
                  primaryStage.show();
@@ -391,19 +454,28 @@ public class HotelReservation extends Application {
              pressed */
             @Override
             public void handle(ActionEvent event) {
-            	  ShowRoom();
+            	  
+                // Call the show room method when the button is pressed
+                ShowRoom();
                   
                   System.out.println(NumOfDays(dp.getValue(),dp2.getValue()));
                   
                   try {
-                      /*CostOfRoom Method is called, nights stayed takes first
+
+                      /* NumOfDays method is called, the date picker for the 
+                       check in date takes the first parameter and the date 
+                       picker for the check out date takes the second parameter
+                      */
+                      nightsStayed = NumOfDays(dp.getValue(),dp2.getValue());
+                      
+                    /* CostOfRoom Method is called, nights stayed takes first
                         parameter while the room they select in the choice box 
                         takes the second parameter.
                       */
-                      nightsStayed = NumOfDays(dp.getValue(),dp2.getValue());
                       roomCost = CostOfRoom(nightsStayed, choiceBox.getValue());
                   }
                   
+                  // If compiler cannot find the file, then catch the error
                   catch (FileNotFoundException e1) {
                       e1.printStackTrace();
                   }
