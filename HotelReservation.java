@@ -1256,6 +1256,7 @@ public class HotelReservation extends Application {
    based on the dates they selected from the date picker
    * @param LocalDate d1 for the check in date 
    * @param LocalDate d2 for the check out date
+   ** @return the number of days the user will be staying
    */
      public int NumOfDays(LocalDate d1, LocalDate d2)
       {
