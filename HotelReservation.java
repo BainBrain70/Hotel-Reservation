@@ -484,7 +484,7 @@ public class HotelReservation extends Application {
                 // Call the show room method when the button is pressed
                 ShowRoom();
                   
-                  System.out.println(NumOfDays(dp.getValue(),dp2.getValue()));
+                //  System.out.println(NumOfDays(dp.getValue(),dp2.getValue()));
 
             }
             
@@ -495,6 +495,10 @@ public class HotelReservation extends Application {
             @Override
             public void handle(ActionEvent event) {
                 
+		    /** 
+		    	Check for user input if there is no input 
+		        Print out an alert
+		     */
                if (dp.getValue() == null || dp2.getValue() == null)
                {
                  Alert alert = new Alert(AlertType.ERROR,"Please enter a check"
@@ -502,12 +506,16 @@ public class HotelReservation extends Application {
                          + "clicking the 'Previous Page' button");
                          alert.showAndWait();
               }
-              
+              /*
               else if ( nightsStayed == NumOfDays(dp.getValue(),dp2.getValue())) 
               {
                     
               }
-              
+                */
+		 /** 
+		 Check to make sure this field does not contain an integer
+		 If the field contains an integer then print out alert 
+		  */
               else if (!ContainsInteger(guestsField.getText())) 
               {
                   Alert alert = new Alert(AlertType.ERROR,"Please enter a valid"
@@ -515,6 +523,9 @@ public class HotelReservation extends Application {
                           + "clicking the 'Previous Page' button");
                   alert.showAndWait();
               }
+		    /**
+			If the room selection is blank print out an alert		    
+		    */
               
               else if (choiceBox.getValue() == null) 
               {
@@ -544,63 +555,89 @@ public class HotelReservation extends Application {
                    e.printStackTrace();
                }
                   
-            	
+            	// Set up a grid pane
             	GridPane gridPane = null;
             	
             	gridPane = new GridPane();
             	Scene scene4 = new Scene(gridPane);
             	
+		// Create a label for credit card type
             	cardType = new Label("Card Type");
-            	cardNum = new Label("Card Number");
+            	
+		// Create a label for credit card number
+		cardNum = new Label("Card Number");
+		    
+		 // Create a label for credit card expiration date
             	expirationDate = new Label("Expiration Date");
+		    
+		 // Create a label for the name on the credit card
             	nameOnCard = new Label("Enter the name on the credit card "
                         + "exactly how it appears");
+		 
+		// Create a label for the CCV number on the credit card
             	ccvNumber = new Label("CCV #");
             	
+		// Set up the text field for credit card number
             	cardNumField = new TextField();
             	cardNumField.setEditable(true);
             	cardNumField.setText("");
             	
+		 // Set up the text field for credit card expiration date
             	expDateField = new TextField();
             	expDateField.setEditable(true);
             	expDateField.setText("");
             	
+		// Set up the text field for the name on the credit card    
             	nameOnCardField = new TextField();
             	nameOnCardField.setEditable(true);
             	nameOnCardField.setText("");
             	
+		// Set up the text field for the CCV number on the credit card 
             	ccvNumberField = new TextField();
             	ccvNumberField.setEditable(true);
             	ccvNumberField.setText("");
             	
+		// Create a combo bax for credit card selection menu
             	cardSelect = new ComboBox<>();
             	
+		// Add different card types to the Menu 
             	cardSelect.getItems().addAll("Visa","Master Card","American "
                         + "Express");
                 
+		// Create a new combo box for the credit card expiration months
                 cardExpMonth = new ComboBox<>();
                 
+		// Add the months to the menu
                 cardExpMonth.getItems().addAll("01 - Janruary", "02 - February"
                 , "03 - March", "04 - April", "05 - May", "06 - June", "07 - July"
                 , "08 - August", "09 - September", "10 - October", "11 - November"
                 , "12 - December");
                 
+		 // Create a combo box for the credit card expiration year   
                 cardExpYear = new ComboBox<>();
                 
+		// Add years to the menu
                 cardExpYear.getItems().addAll("2019", "2020", "2021", "2022",
                         "2023", "2024");
             	
-               
+               // Create a label and pass it the strign "HI"
                 Label outputLabel2 = new Label("HI");
+		    
+		// Set the label text to "Total Cost"
                 outputLabel2.setText("Total Cost: " );
                 
+		 // Create a label to print out room cost
                 Label outputLabel1 = new Label("Hello");
+		    
+		// Print out a formatted string contianing the room cost
                 outputLabel1.setText(String.format("$%.2f" , roomCost));
             	
+		// Format grid pane with empty spaces around its contents
             	gridPane.setPadding(new Insets(30, 30, 30, 30)); 
                 gridPane.setHgap(10);                            
                 gridPane.setVgap(10);
             	
+		// Add Payment information to the grid pane
                 gridPane.add(outputLabel2,0,0);
                 gridPane.add(outputLabel1,0,1);
                 gridPane.add(nameOnCard, 0, 2);
@@ -617,6 +654,7 @@ public class HotelReservation extends Application {
             	gridPane.add(reviewButton, 0,13);
                 gridPane.add(previousPage2,0,14);
             	
+		 // Display the payment information grid pane to the screen
             	 primaryStage.setTitle("Payment Information");
                  primaryStage.setScene(scene4);
                  primaryStage.show();
@@ -1107,12 +1145,25 @@ public class HotelReservation extends Application {
             System.out.println(ex);
         }
     }
-    
+    /**
+    ContainsInteger function take a string parameter and converts
+    it into a character array. The function then determines is one 
+    of the character in the string contains an interger.
+    */
      public static boolean ContainsInteger(String s) {
-        
-       boolean containsInteger = false;   
+       // Establish boolean variable to verify the string parameter
+       boolean containsInteger = false;
+	
+	/** Create a character array and store the string 
+	parameter passed to the function it the array
+	*/
        char[] temp = s.toCharArray();
-	       	
+	
+	/**
+	Create a for loop to scan the array looking for an 
+	integer. If integer is found the function return true. 
+	If not integer is foun the function returns false
+	*/
         for(int i = 0; i < s.length(); i++)
 	 {
 	     if(Character.isDigit(temp[i]))
@@ -1123,16 +1174,31 @@ public class HotelReservation extends Application {
 	      return false;
 	   }
 	
+      /**
+      The ShowRoom function displays a diiferent picture depending
+      on the room that the user selects
+      */
       public void ShowRoom()
       {
-	  
+	// Create a new window for the room to be displayed on 
         Stage window = new Stage();
+	
+	// Forces the user to make a selection on the current window
         window.initModality(Modality.APPLICATION_MODAL);
+	 
+	//  Create a button so the user can close the window      
         Button closeButton = new Button("Close Window");
+	 
+	// Give the button the close window functionality
         closeButton.setOnAction(e -> window.close());
-        String pic = null;
+        
+	// Create a String variable to determine what picture is displayed      
+	String pic = null;
+	      
+	// Create a String variable to hold the room type selected by the user      
         String roomType = null;
 	   
+	  // Disply the picuture of the room that the user selected      
           if(choiceBox.getValue() == "Guest Room, 1 King ($300)")
 	   {
 		   pic = "file:download.jpg";
@@ -1157,34 +1223,65 @@ public class HotelReservation extends Application {
 		   roomType = "Executive Suite ($480)";
 	   }
 
+	   // Create an image object and pass it the chosen picture 
 	   Image image = new Image(pic);
 	   
+	   // Create a vertical box to display the picture and close button 
            VBox vBox = new VBox();
      
+	   // Create an Image View object and pass it the picture image
            ImageView imageView = new ImageView(image);
-     
+        
+	   // Add the image and the close button to the vertical box
            vBox.getChildren().addAll(imageView, closeButton);
+	   
+	   // Display the button and the picture in the middle of the box 
            vBox.setAlignment(Pos.CENTER);
+	   
+	   // Adjust the window size to fit the picture and button
            Scene scene = new Scene(vBox,265,220 );
+	   
+	   // Attach the window to the scene
            window.setScene(scene);
+	      
+	   //Display the window until the user closes the window
            window.showAndWait();
     
       }
       
-   
+   /**
+   The NumOfDays function calculates the number of night the user will stay
+   based on the dates they selected from the date picker
+   * @param LocalDate d1 for the check in date 
+   * @param LocalDate d2 for the check out date
+   */
      public int NumOfDays(LocalDate d1, LocalDate d2)
       {
+	   // Interger variable to store the check in date
 	   int day1;
+	   
+	   // Integer variable to store the check out date 
 	   int day2;
+	     
+	   // Integer variable to store the number of nights
 	   int numOfNights = 0;
+	     
+	   // Store a value between 1 and 356 based on the user check in date 
 	   day1 = d1.getDayOfYear();
+	   
+	   // Stores a value between 1 and 365 based on the user check out date
 	   day2 = d2.getDayOfYear();
+	     
+	   // Calculates the nights stayed by substracting the values of the 2 date selected 
 	   numOfNights = day2 - day1;
+	     
+	   // Checks to make sure the check in date is before the check out date
            if (d1.getDayOfYear() < d2.getDayOfYear()) {
            
                return numOfNights;
            }
            
+	   // If the check out date is before check in date an alert is sent to the screen
            else {
                Alert alert = new Alert(AlertType.ERROR,"Check-In Date cannot be"
                        + " after Check-Out Date. Please go back and fix it");
@@ -1205,28 +1302,44 @@ public class HotelReservation extends Application {
      */
      public double CostOfRoom(int num, Object room) throws FileNotFoundException
      {
-           
+           // Variable to store the total cost of the room 
 	   double cost = 0.0;
+	     
+	   // Variabel to store the cost of the single queen room
 	   double queen1 = 0.0;
+	   
+	   // Varibale to store the cose of a double queen room
 	   double  queen2 = 0.0;
+	     
+	   // Variable to store the cost of a single king room
 	   double king1 = 0.0;
+	     
+	   // Variable to store the cost of the executive suite
 	   double executive = 0.0;
            
            
           
-           
+           // Try to open the cost.txt file
 	   try {
 	     Scanner scnr = new Scanner(new File("cost.txt"));
             
+	   // While the file has another number in it 
              while (scnr.hasNext())
 	     {
+		  // Store the cost of a single queen in the queen1 varibale   
                   queen1 = scnr.nextDouble();
+		  
+		  // Store the cost of a double queen in the queen2 variable
 		  queen2 = scnr.nextDouble();
+		  
+		  // Store the cost of a single king in the king1 variable
 		  king1 = scnr.nextDouble();
+		     
+		  // Stroe the cost of the excutive suite in the excuitive variable
 		  executive = scnr.nextDouble();
                   
              }  
-      
+              // calculates cost based on the room chosen and the number of nights stayed
               if(room == "Guest Room, 1 Queen ($200)" )
 	      {
 		 cost = num * queen1;
@@ -1261,7 +1374,7 @@ public class HotelReservation extends Application {
            catch(IOException e){
 		   
 	   }
-	   
+	
            return cost;
            
    }
