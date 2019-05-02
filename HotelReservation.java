@@ -1,7 +1,9 @@
 /**
  * Hotel Reservation Program that allows a user to enter their information.
- *
- * 
+ * Select from options including number of nights stayed and different room styles
+ * Recieve an email confirming there reservation
+ * Handles error checking for vaild inputs 
+ * Provides pictures and drop down menus as well as text fields to assist the user
  */
 package hotelreservation;
 
